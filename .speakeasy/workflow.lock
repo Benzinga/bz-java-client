@@ -1,6 +1,6 @@
 speakeasyVersion: 1.448.2
 sources:
-    Benzinga APIs:
+    BZ_APIs:
         sourceNamespace: benzinga-ap-is
         sourceRevisionDigest: sha256:1feb94a2ed74d83d2098884fd22b9717f7f124f445d6779143b5e109c1b3b324
         sourceBlobDigest: sha256:f5369373dad25b962819006ee495ebe982ec9d00b3934a0d15cdb7d060b829a7
