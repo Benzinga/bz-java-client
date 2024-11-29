@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 5b1af2c6-8e5e-4c4d-ac33-d4c3c9add7de
 management:
-  docChecksum: bf4b59f8b4596a0aa8440fedc4ca3d5b
+  docChecksum: 482b6448351f80b5766b7c2de88572e9
   docVersion: 1.0.0
   speakeasyVersion: 1.448.2
   generationVersion: 2.467.4
-  releaseVersion: 0.2.1
-  configChecksum: 7c9b67f42958906ffe36c0f7486d8019
+  releaseVersion: 0.2.2
+  configChecksum: 5f1549ec37f6a6136bb70fe718ece901
   repoURL: https://github.com/Benzinga/bz-java-client.git
   published: true
 features:

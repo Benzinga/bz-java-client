@@ -22,6 +22,7 @@ workflow:
                 - location: openapi.yaml
             overlays:
                 - location: .speakeasy/speakeasy-modifications-overlay.yaml
+            output: mintlify-docs
             registry:
                 location: registry.speakeasyapi.dev/benzinga/benzinga/benzinga-ap-is
     targets:
