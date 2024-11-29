@@ -16,13 +16,13 @@ public enum SearchKeysType {
     ANALYST_ID("analyst_id"),
     ANALYST_NAME("analyst_name");
 
-    @JsonValue
     private final String value;
 
     private SearchKeysType(String value) {
         this.value = value;
     }
-    
+
+    @JsonValue
     public String value() {
         return value;
     }

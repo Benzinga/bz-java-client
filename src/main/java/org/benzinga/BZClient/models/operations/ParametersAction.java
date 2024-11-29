@@ -23,13 +23,13 @@ public enum ParametersAction {
     SUSPENDS("Suspends"),
     FIRM_DISSOLVED("Firm Dissolved");
 
-    @JsonValue
     private final String value;
 
     private ParametersAction(String value) {
         this.value = value;
     }
-    
+
+    @JsonValue
     public String value() {
         return value;
     }

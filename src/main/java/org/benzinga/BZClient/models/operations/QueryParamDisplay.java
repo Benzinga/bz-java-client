@@ -14,13 +14,13 @@ public enum QueryParamDisplay {
     FLAT("flat"),
     NESTED("nested");
 
-    @JsonValue
     private final String value;
 
     private QueryParamDisplay(String value) {
         this.value = value;
     }
-    
+
+    @JsonValue
     public String value() {
         return value;
     }
