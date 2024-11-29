@@ -22,13 +22,13 @@ public enum BzhttpErrorCode {
     SERVICE_UNAVAILABLE("service_unavailable"),
     UPSTREAM_API_ERROR("upstream_api_error");
 
+    @JsonValue
     private final String value;
 
     private BzhttpErrorCode(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

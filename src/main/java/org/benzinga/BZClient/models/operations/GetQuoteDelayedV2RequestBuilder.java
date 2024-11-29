@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetQuoteDelayedV2RequestBuilder {
@@ -13,6 +15,7 @@ public class GetQuoteDelayedV2RequestBuilder {
     private Optional<String> symbols = Optional.empty();
     private Optional<String> isin = Optional.empty();
     private Optional<String> cik = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetQuoteDelayedV2 sdk;
 
     public GetQuoteDelayedV2RequestBuilder(SDKMethodInterfaces.MethodCallGetQuoteDelayedV2 sdk) {
@@ -54,12 +57,27 @@ public class GetQuoteDelayedV2RequestBuilder {
         this.cik = cik;
         return this;
     }
+                
+    public GetQuoteDelayedV2RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetQuoteDelayedV2RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetQuoteDelayedV2Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
             symbols,
             isin,
-            cik);
+            cik,
+            options);
     }
 }

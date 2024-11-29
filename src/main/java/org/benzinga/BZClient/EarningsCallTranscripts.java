@@ -11,8 +11,11 @@ import java.lang.Long;
 import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import org.benzinga.BZClient.models.components.ModelsTranscriptSummary;
 import org.benzinga.BZClient.models.components.ModelsTranscriptSummaryAudio;
 import org.benzinga.BZClient.models.errors.APIException;
@@ -23,11 +26,16 @@ import org.benzinga.BZClient.models.operations.GetEarningsCallTranscriptsRequest
 import org.benzinga.BZClient.models.operations.GetEarningsCallTranscriptsRequestBuilder;
 import org.benzinga.BZClient.models.operations.GetEarningsCallTranscriptsResponse;
 import org.benzinga.BZClient.models.operations.SDKMethodInterfaces.*;
+import org.benzinga.BZClient.utils.BackoffStrategy;
 import org.benzinga.BZClient.utils.HTTPClient;
 import org.benzinga.BZClient.utils.HTTPRequest;
 import org.benzinga.BZClient.utils.Hook.AfterErrorContextImpl;
 import org.benzinga.BZClient.utils.Hook.AfterSuccessContextImpl;
 import org.benzinga.BZClient.utils.Hook.BeforeRequestContextImpl;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.Retries.NonRetryableException;
+import org.benzinga.BZClient.utils.Retries;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils; 
 
 public class EarningsCallTranscripts implements
@@ -57,7 +65,7 @@ public class EarningsCallTranscripts implements
      * @throws Exception if the API call fails
      */
     public GetEarningsCallTranscriptsResponse getDirect() throws Exception {
-        return get(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        return get(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -67,6 +75,7 @@ public class EarningsCallTranscripts implements
      * @param callId Call ID
      * @param page Page
      * @param pagesize Page Size
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -74,7 +83,12 @@ public class EarningsCallTranscripts implements
             Optional<? extends List<String>> tickers,
             Optional<? extends List<String>> callId,
             Optional<Long> page,
-            Optional<Long> pagesize) throws Exception {
+            Optional<Long> pagesize,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetEarningsCallTranscriptsRequest request =
             GetEarningsCallTranscriptsRequest
                 .builder()
@@ -103,45 +117,62 @@ public class EarningsCallTranscripts implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-earnings-call-transcripts", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-earnings-call-transcripts",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-earnings-call-transcripts",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-earnings-call-transcripts",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-earnings-call-transcripts", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-earnings-call-transcripts",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-earnings-call-transcripts", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -203,7 +234,7 @@ public class EarningsCallTranscripts implements
      * @throws Exception if the API call fails
      */
     public GetEarningsCallTranscriptAudioFilesResponse getAudioDirect() throws Exception {
-        return getAudio(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        return getAudio(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -213,6 +244,7 @@ public class EarningsCallTranscripts implements
      * @param callId Call ID
      * @param page Page
      * @param pagesize Page Size
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -220,7 +252,12 @@ public class EarningsCallTranscripts implements
             Optional<? extends List<String>> tickers,
             Optional<? extends List<String>> callId,
             Optional<Long> page,
-            Optional<Long> pagesize) throws Exception {
+            Optional<Long> pagesize,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetEarningsCallTranscriptAudioFilesRequest request =
             GetEarningsCallTranscriptAudioFilesRequest
                 .builder()
@@ -249,45 +286,62 @@ public class EarningsCallTranscripts implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-earnings-call-transcript-audio-files", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-earnings-call-transcript-audio-files",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-earnings-call-transcript-audio-files",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-earnings-call-transcript-audio-files",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-earnings-call-transcript-audio-files", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-earnings-call-transcript-audio-files",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-earnings-call-transcript-audio-files", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")

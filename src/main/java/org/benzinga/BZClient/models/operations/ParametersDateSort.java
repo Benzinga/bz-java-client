@@ -16,13 +16,13 @@ public enum ParametersDateSort {
     PAYABLE("payable"),
     RECORD("record");
 
+    @JsonValue
     private final String value;
 
     private ParametersDateSort(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

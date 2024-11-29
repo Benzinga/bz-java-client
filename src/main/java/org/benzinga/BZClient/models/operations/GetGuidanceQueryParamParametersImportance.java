@@ -18,13 +18,13 @@ public enum GetGuidanceQueryParamParametersImportance {
     FOUR("4"),
     FIVE("5");
 
+    @JsonValue
     private final String value;
 
     private GetGuidanceQueryParamParametersImportance(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

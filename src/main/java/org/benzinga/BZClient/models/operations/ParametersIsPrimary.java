@@ -15,13 +15,13 @@ public enum ParametersIsPrimary {
     N("N"),
     ALL("All");
 
+    @JsonValue
     private final String value;
 
     private ParametersIsPrimary(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetIncomeStatementV3RequestBuilder {
@@ -14,6 +16,7 @@ public class GetIncomeStatementV3RequestBuilder {
     private Optional<String> from = Optional.empty();
     private Optional<String> to = Optional.empty();
     private Optional<String> date = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetIncomeStatementV3 sdk;
 
     public GetIncomeStatementV3RequestBuilder(SDKMethodInterfaces.MethodCallGetIncomeStatementV3 sdk) {
@@ -61,13 +64,28 @@ public class GetIncomeStatementV3RequestBuilder {
         this.date = date;
         return this;
     }
+                
+    public GetIncomeStatementV3RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetIncomeStatementV3RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetIncomeStatementV3Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getIncomeStatement(
             symbols,
             from,
             to,
-            date);
+            date,
+            options);
     }
 }

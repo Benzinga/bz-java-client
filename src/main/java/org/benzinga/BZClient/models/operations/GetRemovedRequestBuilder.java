@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.Long;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetRemovedRequestBuilder {
@@ -14,6 +16,7 @@ public class GetRemovedRequestBuilder {
     private Optional<Long> pageSize = Optional.empty();
     private Optional<? extends Type> type = Optional.empty();
     private Optional<Long> updated = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetRemoved sdk;
 
     public GetRemovedRequestBuilder(SDKMethodInterfaces.MethodCallGetRemoved sdk) {
@@ -67,13 +70,28 @@ public class GetRemovedRequestBuilder {
         this.updated = updated;
         return this;
     }
+                
+    public GetRemovedRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetRemovedRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetRemovedResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
             page,
             pageSize,
             type,
-            updated);
+            updated,
+            options);
     }
 }

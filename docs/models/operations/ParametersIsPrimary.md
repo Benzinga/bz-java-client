@@ -7,6 +7,6 @@ Is Primary
 
 | Name  | Value |
 | ----- | ----- |
-| `Y`   | "Y"   |
-| `N`   | "N"   |
-| `ALL` | "All" |
+| `Y`   | Y     |
+| `N`   | N     |
+| `ALL` | All   |

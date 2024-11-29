@@ -8,6 +8,8 @@ import java.lang.Long;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetEarningsCallTranscriptAudioFilesRequestBuilder {
@@ -16,6 +18,7 @@ public class GetEarningsCallTranscriptAudioFilesRequestBuilder {
     private Optional<? extends List<String>> callId = Optional.empty();
     private Optional<Long> page = Optional.empty();
     private Optional<Long> pagesize = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetEarningsCallTranscriptAudioFiles sdk;
 
     public GetEarningsCallTranscriptAudioFilesRequestBuilder(SDKMethodInterfaces.MethodCallGetEarningsCallTranscriptAudioFiles sdk) {
@@ -69,13 +72,28 @@ public class GetEarningsCallTranscriptAudioFilesRequestBuilder {
         this.pagesize = pagesize;
         return this;
     }
+                
+    public GetEarningsCallTranscriptAudioFilesRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetEarningsCallTranscriptAudioFilesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetEarningsCallTranscriptAudioFilesResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getAudio(
             tickers,
             callId,
             page,
-            pagesize);
+            pagesize,
+            options);
     }
 }

@@ -14,13 +14,13 @@ public enum ParametersDateSearchField {
     ANNOUNCED("announced"),
     TARGET("target");
 
+    @JsonValue
     private final String value;
 
     private ParametersDateSearchField(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

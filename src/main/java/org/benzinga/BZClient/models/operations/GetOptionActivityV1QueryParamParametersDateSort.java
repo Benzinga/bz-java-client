@@ -13,13 +13,13 @@ import java.lang.String;
 public enum GetOptionActivityV1QueryParamParametersDateSort {
     DATE("date");
 
+    @JsonValue
     private final String value;
 
     private GetOptionActivityV1QueryParamParametersDateSort(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

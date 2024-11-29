@@ -7,5 +7,5 @@ Display
 
 | Name     | Value    |
 | -------- | -------- |
-| `FLAT`   | "flat"   |
-| `NESTED` | "nested" |
+| `FLAT`   | flat     |
+| `NESTED` | nested   |

@@ -7,5 +7,5 @@ Chamber
 
 | Name     | Value    |
 | -------- | -------- |
-| `HOUSE`  | "House"  |
-| `SENATE` | "Senate" |
+| `HOUSE`  | House    |
+| `SENATE` | Senate   |

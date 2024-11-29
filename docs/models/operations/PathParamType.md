@@ -7,5 +7,5 @@ Transaction Type
 
 | Name           | Value          |
 | -------------- | -------------- |
-| `TRANSACTIONS` | "transactions" |
-| `FILINGS`      | "filings"      |
+| `TRANSACTIONS` | transactions   |
+| `FILINGS`      | filings        |

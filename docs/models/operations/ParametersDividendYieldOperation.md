@@ -7,8 +7,8 @@ Dividend yield operation
 
 | Name  | Value |
 | ----- | ----- |
-| `LT`  | "lt"  |
-| `LTE` | "lte" |
-| `EQ`  | "eq"  |
-| `GT`  | "gt"  |
-| `GTE` | "gte" |
+| `LT`  | lt    |
+| `LTE` | lte   |
+| `EQ`  | eq    |
+| `GT`  | gt    |
+| `GTE` | gte   |

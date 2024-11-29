@@ -14,13 +14,13 @@ public enum AggregateType {
     NUMBER("number"),
     PERCENTAGE("percentage");
 
+    @JsonValue
     private final String value;
 
     private AggregateType(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

@@ -14,13 +14,13 @@ public enum QueryParamChamber {
     HOUSE("House"),
     SENATE("Senate");
 
+    @JsonValue
     private final String value;
 
     private QueryParamChamber(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }
