@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetShareClassProfileV21RequestBuilder {
@@ -14,6 +16,7 @@ public class GetShareClassProfileV21RequestBuilder {
     private Optional<String> asOf = Optional.empty();
     private Optional<String> period = Optional.empty();
     private Optional<String> reportType = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetShareClassProfileV21 sdk;
 
     public GetShareClassProfileV21RequestBuilder(SDKMethodInterfaces.MethodCallGetShareClassProfileV21 sdk) {
@@ -61,13 +64,28 @@ public class GetShareClassProfileV21RequestBuilder {
         this.reportType = reportType;
         return this;
     }
+                
+    public GetShareClassProfileV21RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetShareClassProfileV21RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetShareClassProfileV21Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getShareClassProfile(
             symbols,
             asOf,
             period,
-            reportType);
+            reportType,
+            options);
     }
 }

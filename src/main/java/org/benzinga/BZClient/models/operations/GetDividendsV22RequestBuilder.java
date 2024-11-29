@@ -4,11 +4,15 @@
 
 package org.benzinga.BZClient.models.operations;
 
+import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetDividendsV22RequestBuilder {
 
     private GetDividendsV22Request request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetDividendsV22 sdk;
 
     public GetDividendsV22RequestBuilder(SDKMethodInterfaces.MethodCallGetDividendsV22 sdk) {
@@ -20,10 +24,25 @@ public class GetDividendsV22RequestBuilder {
         this.request = request;
         return this;
     }
+                
+    public GetDividendsV22RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetDividendsV22RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetDividendsV22Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getV22(
-            request);
+            request,
+            options);
     }
 }

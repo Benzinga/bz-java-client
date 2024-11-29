@@ -9,6 +9,7 @@ import java.lang.Long;
 import java.lang.String;
 import java.util.List;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
 
 public class SDKMethodInterfaces {
 
@@ -16,43 +17,50 @@ public class SDKMethodInterfaces {
     public interface MethodCallGetAnalystReportsRawTextData {
         GetAnalystReportsRawTextDataResponse get(
             Optional<Long> page,
-            Optional<Long> pagesize) throws Exception;
+            Optional<Long> pagesize,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetAnalystInsightsV1 {
         GetAnalystInsightsV1Response get(
-            GetAnalystInsightsV1Request request) throws Exception;
+            GetAnalystInsightsV1Request request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetIposV21 {
         GetIposV21Response getV21(
-            GetIposV21Request request) throws Exception;
+            GetIposV21Request request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetIposV2 {
         GetIposV2Response get(
-            GetIposV2Request request) throws Exception;
+            GetIposV2Request request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetDividendsV22 {
         GetDividendsV22Response getV22(
-            GetDividendsV22Request request) throws Exception;
+            GetDividendsV22Request request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetDividends {
         GetDividendsResponse get(
-            GetDividendsRequest request) throws Exception;
+            GetDividendsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetBullsSayBearsSayV1 {
         GetBullsSayBearsSayV1Response get(
-            Optional<String> symbols) throws Exception;
+            Optional<String> symbols,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -61,115 +69,134 @@ public class SDKMethodInterfaces {
             Optional<Long> page,
             Optional<Long> pageSize,
             Optional<? extends Type> type,
-            Optional<Long> updated) throws Exception;
+            Optional<Long> updated,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetConferenceCalls {
         GetConferenceCallsResponse get(
-            GetConferenceCallsRequest request) throws Exception;
+            GetConferenceCallsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetEarnings {
         GetEarningsResponse get(
-            GetEarningsRequest request) throws Exception;
+            GetEarningsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetEconomics {
         GetEconomicsResponse get(
-            GetEconomicsRequest request) throws Exception;
+            GetEconomicsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetEvents {
         GetEventsResponse get(
-            GetEventsRequest request) throws Exception;
+            GetEventsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetFda {
         GetFdaResponse get(
-            GetFdaRequest request) throws Exception;
+            GetFdaRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetGuidance {
         GetGuidanceResponse get(
-            GetGuidanceRequest request) throws Exception;
+            GetGuidanceRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetMa {
         GetMaResponse get(
-            GetMaRequest request) throws Exception;
+            GetMaRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetOfferings {
         GetOfferingsResponse get(
-            GetOfferingsRequest request) throws Exception;
+            GetOfferingsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetRatings {
         GetRatingsResponse get(
-            GetRatingsRequest request) throws Exception;
+            GetRatingsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetRatingsAnalysts {
         GetRatingsAnalystsResponse get(
-            GetRatingsAnalystsRequest request) throws Exception;
+            GetRatingsAnalystsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetRatingsFirms {
         GetRatingsFirmsResponse get(
-            GetRatingsFirmsRequest request) throws Exception;
+            GetRatingsFirmsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetSplits {
         GetSplitsResponse get(
-            GetSplitsRequest request) throws Exception;
+            GetSplitsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetConsensusRatingsV1 {
         GetConsensusRatingsV1Response get(
-            GetConsensusRatingsV1Request request) throws Exception;
+            GetConsensusRatingsV1Request request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetGovernmentTradeReports {
         GetGovernmentTradeReportsResponse get(
-            GetGovernmentTradeReportsRequest request) throws Exception;
+            GetGovernmentTradeReportsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetGovernmentTrades {
         GetGovernmentTradesResponse get(
-            GetGovernmentTradesRequest request) throws Exception;
+            GetGovernmentTradesRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetInsiderTransaction {
         GetInsiderTransactionResponse get(
-            GetInsiderTransactionRequest request) throws Exception;
+            GetInsiderTransactionRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetInsiderTransactionOwner {
         GetInsiderTransactionOwnerResponse getOwner(
-            GetInsiderTransactionOwnerRequest request) throws Exception;
+            GetInsiderTransactionOwnerRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetOptionActivityV1 {
         GetOptionActivityV1Response get(
-            GetOptionActivityV1Request request) throws Exception;
+            GetOptionActivityV1Request request,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -177,7 +204,8 @@ public class SDKMethodInterfaces {
         GetQuoteDelayedV1Response getV1(
             Optional<String> symbols,
             Optional<String> isin,
-            Optional<String> cik) throws Exception;
+            Optional<String> cik,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -186,7 +214,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -195,7 +224,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -204,7 +234,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -213,7 +244,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -222,7 +254,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -231,7 +264,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -240,7 +274,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -249,7 +284,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -258,7 +294,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -267,7 +304,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -276,7 +314,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception;
+            Optional<String> date,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -285,7 +324,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception;
+            Optional<String> date,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -294,7 +334,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception;
+            Optional<String> date,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -303,7 +344,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception;
+            Optional<String> date,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -312,7 +354,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception;
+            Optional<String> date,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -321,7 +364,8 @@ public class SDKMethodInterfaces {
             String symbols,
             String from,
             Optional<String> to,
-            Optional<String> interval) throws Exception;
+            Optional<String> interval,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -330,7 +374,8 @@ public class SDKMethodInterfaces {
             Optional<String> symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -339,7 +384,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -348,7 +394,8 @@ public class SDKMethodInterfaces {
             Optional<String> symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception;
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -356,7 +403,8 @@ public class SDKMethodInterfaces {
         GetQuoteDelayedV2Response get(
             Optional<String> symbols,
             Optional<String> isin,
-            Optional<String> cik) throws Exception;
+            Optional<String> cik,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -365,7 +413,8 @@ public class SDKMethodInterfaces {
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception;
+            Optional<String> date,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -374,7 +423,8 @@ public class SDKMethodInterfaces {
             Optional<? extends List<String>> tickers,
             Optional<? extends List<String>> callId,
             Optional<Long> page,
-            Optional<Long> pagesize) throws Exception;
+            Optional<Long> pagesize,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -383,25 +433,29 @@ public class SDKMethodInterfaces {
             Optional<? extends List<String>> tickers,
             Optional<? extends List<String>> callId,
             Optional<Long> page,
-            Optional<Long> pagesize) throws Exception;
+            Optional<Long> pagesize,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallLogoBulkSync {
         LogoBulkSyncResponse bulkSync(
-            LogoBulkSyncRequest request) throws Exception;
+            LogoBulkSyncRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetSearchLogos {
         GetSearchLogosResponse search(
-            GetSearchLogosRequest request) throws Exception;
+            GetSearchLogosRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetNews {
         GetNewsResponse get(
-            GetNewsRequest request) throws Exception;
+            GetNewsRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
@@ -409,25 +463,29 @@ public class SDKMethodInterfaces {
         GetRemovedNewsResponse getRemoved(
             Optional<String> updatedSince,
             Optional<Long> pageSize,
-            Optional<Long> page) throws Exception;
+            Optional<Long> page,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetNewsquantifiedData {
         GetNewsquantifiedDataResponse get(
-            GetNewsquantifiedDataRequest request) throws Exception;
+            GetNewsquantifiedDataRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetTickerTrendData {
         GetTickerTrendDataResponse get(
-            GetTickerTrendDataRequest request) throws Exception;
+            GetTickerTrendDataRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 
     public interface MethodCallGetTickerTrendListData {
         GetTickerTrendListDataResponse getList(
-            GetTickerTrendListDataRequest request) throws Exception;
+            GetTickerTrendListDataRequest request,
+            Optional<Options> options) throws Exception;
     }
 
 

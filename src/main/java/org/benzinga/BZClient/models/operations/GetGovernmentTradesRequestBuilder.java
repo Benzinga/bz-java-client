@@ -4,11 +4,15 @@
 
 package org.benzinga.BZClient.models.operations;
 
+import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetGovernmentTradesRequestBuilder {
 
     private GetGovernmentTradesRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetGovernmentTrades sdk;
 
     public GetGovernmentTradesRequestBuilder(SDKMethodInterfaces.MethodCallGetGovernmentTrades sdk) {
@@ -20,10 +24,25 @@ public class GetGovernmentTradesRequestBuilder {
         this.request = request;
         return this;
     }
+                
+    public GetGovernmentTradesRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetGovernmentTradesRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetGovernmentTradesResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
-            request);
+            request,
+            options);
     }
 }

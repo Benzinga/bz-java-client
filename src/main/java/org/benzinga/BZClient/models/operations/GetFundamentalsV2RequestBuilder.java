@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetFundamentalsV2RequestBuilder {
@@ -14,6 +16,7 @@ public class GetFundamentalsV2RequestBuilder {
     private Optional<String> asOf = Optional.empty();
     private Optional<String> period = Optional.empty();
     private Optional<String> reportType = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetFundamentalsV2 sdk;
 
     public GetFundamentalsV2RequestBuilder(SDKMethodInterfaces.MethodCallGetFundamentalsV2 sdk) {
@@ -61,13 +64,28 @@ public class GetFundamentalsV2RequestBuilder {
         this.reportType = reportType;
         return this;
     }
+                
+    public GetFundamentalsV2RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetFundamentalsV2RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetFundamentalsV2Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
             symbols,
             asOf,
             period,
-            reportType);
+            reportType,
+            options);
     }
 }

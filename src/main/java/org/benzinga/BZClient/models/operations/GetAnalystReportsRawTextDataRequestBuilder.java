@@ -6,12 +6,15 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.Long;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetAnalystReportsRawTextDataRequestBuilder {
 
     private Optional<Long> page = Optional.empty();
     private Optional<Long> pagesize = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetAnalystReportsRawTextData sdk;
 
     public GetAnalystReportsRawTextDataRequestBuilder(SDKMethodInterfaces.MethodCallGetAnalystReportsRawTextData sdk) {
@@ -41,11 +44,26 @@ public class GetAnalystReportsRawTextDataRequestBuilder {
         this.pagesize = pagesize;
         return this;
     }
+                
+    public GetAnalystReportsRawTextDataRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetAnalystReportsRawTextDataRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetAnalystReportsRawTextDataResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
             page,
-            pagesize);
+            pagesize,
+            options);
     }
 }

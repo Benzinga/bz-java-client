@@ -4,11 +4,15 @@
 
 package org.benzinga.BZClient.models.operations;
 
+import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetEventsRequestBuilder {
 
     private GetEventsRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetEvents sdk;
 
     public GetEventsRequestBuilder(SDKMethodInterfaces.MethodCallGetEvents sdk) {
@@ -20,10 +24,25 @@ public class GetEventsRequestBuilder {
         this.request = request;
         return this;
     }
+                
+    public GetEventsRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetEventsRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetEventsResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
-            request);
+            request,
+            options);
     }
 }

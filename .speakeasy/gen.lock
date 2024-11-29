@@ -1,12 +1,13 @@
 lockVersion: 2.0.0
 id: 5b1af2c6-8e5e-4c4d-ac33-d4c3c9add7de
 management:
-  docChecksum: aa16dc29ded0d50f7e73f53ac247199f
+  docChecksum: bf4b59f8b4596a0aa8440fedc4ca3d5b
   docVersion: 1.0.0
   speakeasyVersion: 1.448.2
   generationVersion: 2.467.4
-  releaseVersion: 0.1.1
-  configChecksum: 94736d86ee92424a398de92c2eea3007
+  releaseVersion: 0.2.0
+  configChecksum: a7cf3f7938f2e60f90e1e40d9f27a3c8
+  repoURL: https://github.com/Benzinga/bz-java-client.git
 features:
   java:
     acceptHeaders: 2.81.2
@@ -19,6 +20,7 @@ features:
     globalServerURLs: 2.82.1
     groups: 2.81.2
     nameOverrides: 2.81.3
+    retries: 0.1.1
     sdkHooks: 0.1.0
 generatedFiles:
   - .gitattributes
@@ -706,7 +708,7 @@ examples:
     speakeasy-default-get-insider-transaction:
       parameters:
         path:
-          type: "\"filings\""
+          type: "filings"
         query: {}
   get-insider-transaction-owner: {}
   get-option-activity-v1: {}

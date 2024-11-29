@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetDerivedFiguresAndRatiosV3RequestBuilder {
@@ -14,6 +16,7 @@ public class GetDerivedFiguresAndRatiosV3RequestBuilder {
     private Optional<String> from = Optional.empty();
     private Optional<String> to = Optional.empty();
     private Optional<String> date = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetDerivedFiguresAndRatiosV3 sdk;
 
     public GetDerivedFiguresAndRatiosV3RequestBuilder(SDKMethodInterfaces.MethodCallGetDerivedFiguresAndRatiosV3 sdk) {
@@ -61,13 +64,28 @@ public class GetDerivedFiguresAndRatiosV3RequestBuilder {
         this.date = date;
         return this;
     }
+                
+    public GetDerivedFiguresAndRatiosV3RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetDerivedFiguresAndRatiosV3RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetDerivedFiguresAndRatiosV3Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
             symbols,
             from,
             to,
-            date);
+            date,
+            options);
     }
 }

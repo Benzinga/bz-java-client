@@ -4,11 +4,15 @@
 
 package org.benzinga.BZClient.models.operations;
 
+import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetInsiderTransactionRequestBuilder {
 
     private GetInsiderTransactionRequest request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetInsiderTransaction sdk;
 
     public GetInsiderTransactionRequestBuilder(SDKMethodInterfaces.MethodCallGetInsiderTransaction sdk) {
@@ -20,10 +24,25 @@ public class GetInsiderTransactionRequestBuilder {
         this.request = request;
         return this;
     }
+                
+    public GetInsiderTransactionRequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetInsiderTransactionRequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetInsiderTransactionResponse call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
-            request);
+            request,
+            options);
     }
 }

@@ -10,8 +10,11 @@ import java.lang.Exception;
 import java.lang.String;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import org.benzinga.BZClient.models.errors.APIException;
 import org.benzinga.BZClient.models.errors.BzhttpResp;
 import org.benzinga.BZClient.models.operations.GetAlphaBetaV21Request;
@@ -60,11 +63,16 @@ import org.benzinga.BZClient.models.operations.GetSharePriceRatiosV3Request;
 import org.benzinga.BZClient.models.operations.GetSharePriceRatiosV3RequestBuilder;
 import org.benzinga.BZClient.models.operations.GetSharePriceRatiosV3Response;
 import org.benzinga.BZClient.models.operations.SDKMethodInterfaces.*;
+import org.benzinga.BZClient.utils.BackoffStrategy;
 import org.benzinga.BZClient.utils.HTTPClient;
 import org.benzinga.BZClient.utils.HTTPRequest;
 import org.benzinga.BZClient.utils.Hook.AfterErrorContextImpl;
 import org.benzinga.BZClient.utils.Hook.AfterSuccessContextImpl;
 import org.benzinga.BZClient.utils.Hook.BeforeRequestContextImpl;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.Retries.NonRetryableException;
+import org.benzinga.BZClient.utils.Retries;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils; 
 
 public class Fundamentals implements
@@ -109,7 +117,7 @@ public class Fundamentals implements
      */
     public GetFundamentalsV21Response getV21(
             String symbols) throws Exception {
-        return getV21(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getV21(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -119,6 +127,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -126,7 +135,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetFundamentalsV21Request request =
             GetFundamentalsV21Request
                 .builder()
@@ -155,45 +169,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-fundamentals-v21", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-fundamentals-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-fundamentals-v21",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-fundamentals-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-fundamentals-v21", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-fundamentals-v21",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-fundamentals-v21", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -257,7 +288,7 @@ public class Fundamentals implements
      */
     public GetAlphaBetaV21Response getAlphaBeta(
             String symbols) throws Exception {
-        return getAlphaBeta(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getAlphaBeta(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -267,6 +298,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -274,7 +306,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetAlphaBetaV21Request request =
             GetAlphaBetaV21Request
                 .builder()
@@ -303,45 +340,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-alpha-beta-v21", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-alpha-beta-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-alpha-beta-v21",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-alpha-beta-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-alpha-beta-v21", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-alpha-beta-v21",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-alpha-beta-v21", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -405,7 +459,7 @@ public class Fundamentals implements
      */
     public GetCompanyV21Response getCompanyV21(
             String symbols) throws Exception {
-        return getCompanyV21(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getCompanyV21(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -415,6 +469,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -422,7 +477,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetCompanyV21Request request =
             GetCompanyV21Request
                 .builder()
@@ -451,45 +511,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-company-v21", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-company-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-company-v21",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-company-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-company-v21", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-company-v21",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-company-v21", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -553,7 +630,7 @@ public class Fundamentals implements
      */
     public GetCompanyProfileV21Response getCompanyProfileV21(
             String symbols) throws Exception {
-        return getCompanyProfileV21(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getCompanyProfileV21(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -563,6 +640,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -570,7 +648,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetCompanyProfileV21Request request =
             GetCompanyProfileV21Request
                 .builder()
@@ -599,45 +682,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-company-profile-v21", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-company-profile-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-company-profile-v21",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-company-profile-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-company-profile-v21", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-company-profile-v21",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-company-profile-v21", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -701,7 +801,7 @@ public class Fundamentals implements
      */
     public GetShareClassV21Response getShareClass(
             String symbols) throws Exception {
-        return getShareClass(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getShareClass(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -711,6 +811,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -718,7 +819,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetShareClassV21Request request =
             GetShareClassV21Request
                 .builder()
@@ -747,45 +853,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-share-class-v21", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-share-class-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-share-class-v21",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-share-class-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-share-class-v21", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-share-class-v21",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-share-class-v21", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -849,7 +972,7 @@ public class Fundamentals implements
      */
     public GetShareClassProfileV21Response getShareClassProfile(
             String symbols) throws Exception {
-        return getShareClassProfile(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getShareClassProfile(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -859,6 +982,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -866,7 +990,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetShareClassProfileV21Request request =
             GetShareClassProfileV21Request
                 .builder()
@@ -895,45 +1024,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-share-class-profile-v21", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-share-class-profile-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-share-class-profile-v21",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-share-class-profile-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-share-class-profile-v21", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-share-class-profile-v21",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-share-class-profile-v21", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -997,7 +1143,7 @@ public class Fundamentals implements
      */
     public GetFundamentalsV2Response get(
             String symbols) throws Exception {
-        return get(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return get(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -1007,6 +1153,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -1014,7 +1161,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetFundamentalsV2Request request =
             GetFundamentalsV2Request
                 .builder()
@@ -1043,45 +1195,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-fundamentals-v2", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-fundamentals-v2",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-fundamentals-v2",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-fundamentals-v2",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-fundamentals-v2", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-fundamentals-v2",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-fundamentals-v2", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -1145,7 +1314,7 @@ public class Fundamentals implements
      */
     public GetAssetClassificationV21Response getAssetClassification(
             String symbols) throws Exception {
-        return getAssetClassification(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getAssetClassification(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -1155,6 +1324,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -1162,7 +1332,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetAssetClassificationV21Request request =
             GetAssetClassificationV21Request
                 .builder()
@@ -1191,45 +1366,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-asset-classification-v21", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-asset-classification-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-asset-classification-v21",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-asset-classification-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-asset-classification-v21", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-asset-classification-v21",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-asset-classification-v21", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -1293,7 +1485,7 @@ public class Fundamentals implements
      */
     public GetEarningsReportsV21Response getEarningsReports(
             String symbols) throws Exception {
-        return getEarningsReports(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getEarningsReports(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -1303,6 +1495,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -1310,7 +1503,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetEarningsReportsV21Request request =
             GetEarningsReportsV21Request
                 .builder()
@@ -1339,45 +1537,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-earnings-reports-v21", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-earnings-reports-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-earnings-reports-v21",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-earnings-reports-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-earnings-reports-v21", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-earnings-reports-v21",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-earnings-reports-v21", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -1441,7 +1656,7 @@ public class Fundamentals implements
      */
     public GetFinancialsV21Response getFinancialsV21(
             String symbols) throws Exception {
-        return getFinancialsV21(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getFinancialsV21(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -1451,6 +1666,7 @@ public class Fundamentals implements
      * @param asOf As of date
      * @param period Period
      * @param reportType Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -1458,7 +1674,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> asOf,
             Optional<String> period,
-            Optional<String> reportType) throws Exception {
+            Optional<String> reportType,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetFinancialsV21Request request =
             GetFinancialsV21Request
                 .builder()
@@ -1487,45 +1708,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-financials-v21", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-financials-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-financials-v21",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-financials-v21",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-financials-v21", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-financials-v21",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-financials-v21", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -1603,7 +1841,7 @@ public class Fundamentals implements
      */
     public GetFundamentalsV3Response getV3(
             String symbols) throws Exception {
-        return getV3(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getV3(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -1613,6 +1851,7 @@ public class Fundamentals implements
      * @param from From date
      * @param to To date
      * @param date Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -1620,7 +1859,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception {
+            Optional<String> date,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetFundamentalsV3Request request =
             GetFundamentalsV3Request
                 .builder()
@@ -1649,45 +1893,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-fundamentals-v3", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-fundamentals-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-fundamentals-v3",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-fundamentals-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-fundamentals-v3", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-fundamentals-v3",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-fundamentals-v3", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -1751,7 +2012,7 @@ public class Fundamentals implements
      */
     public GetBalanceSheetV3Response getBalanceSheetV3(
             String symbols) throws Exception {
-        return getBalanceSheetV3(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getBalanceSheetV3(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -1761,6 +2022,7 @@ public class Fundamentals implements
      * @param from From
      * @param to To
      * @param date Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -1768,7 +2030,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception {
+            Optional<String> date,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetBalanceSheetV3Request request =
             GetBalanceSheetV3Request
                 .builder()
@@ -1797,45 +2064,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-balance-sheet-v3", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-balance-sheet-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-balance-sheet-v3",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-balance-sheet-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-balance-sheet-v3", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-balance-sheet-v3",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-balance-sheet-v3", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -1913,7 +2197,7 @@ public class Fundamentals implements
      */
     public GetCashFlowV3Response getCashFlowV3(
             String symbols) throws Exception {
-        return getCashFlowV3(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getCashFlowV3(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -1923,6 +2207,7 @@ public class Fundamentals implements
      * @param from From date
      * @param to To date
      * @param date Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -1930,7 +2215,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception {
+            Optional<String> date,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetCashFlowV3Request request =
             GetCashFlowV3Request
                 .builder()
@@ -1959,45 +2249,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-cash-flow-v3", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-cash-flow-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-cash-flow-v3",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-cash-flow-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-cash-flow-v3", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-cash-flow-v3",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-cash-flow-v3", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -2075,7 +2382,7 @@ public class Fundamentals implements
      */
     public GetIncomeStatementV3Response getIncomeStatement(
             String symbols) throws Exception {
-        return getIncomeStatement(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getIncomeStatement(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -2085,6 +2392,7 @@ public class Fundamentals implements
      * @param from From date
      * @param to To date
      * @param date Report Type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -2092,7 +2400,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception {
+            Optional<String> date,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetIncomeStatementV3Request request =
             GetIncomeStatementV3Request
                 .builder()
@@ -2121,45 +2434,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-income-statement-v3", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-income-statement-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-income-statement-v3",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-income-statement-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-income-statement-v3", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-income-statement-v3",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-income-statement-v3", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")
@@ -2223,7 +2553,7 @@ public class Fundamentals implements
      */
     public GetSharePriceRatiosV3Response getSharePriceRatios(
             String symbols) throws Exception {
-        return getSharePriceRatios(symbols, Optional.empty(), Optional.empty(), Optional.empty());
+        return getSharePriceRatios(symbols, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
     }
     
     /**
@@ -2233,6 +2563,7 @@ public class Fundamentals implements
      * @param from From date
      * @param to To date
      * @param date Report type
+     * @param options additional options
      * @return The response from the API call
      * @throws Exception if the API call fails
      */
@@ -2240,7 +2571,12 @@ public class Fundamentals implements
             String symbols,
             Optional<String> from,
             Optional<String> to,
-            Optional<String> date) throws Exception {
+            Optional<String> date,
+            Optional<Options> options) throws Exception {
+
+        if (options.isPresent()) {
+          options.get().validate(Arrays.asList(Options.Option.RETRY_CONFIG));
+        }
         GetSharePriceRatiosV3Request request =
             GetSharePriceRatiosV3Request
                 .builder()
@@ -2269,45 +2605,62 @@ public class Fundamentals implements
                 this.sdkConfiguration.securitySource.getSecurity());
 
         HTTPClient _client = this.sdkConfiguration.defaultClient;
-        HttpRequest _r = 
-            sdkConfiguration.hooks()
-               .beforeRequest(
-                  new BeforeRequestContextImpl(
-                      "get-share-price-ratios-v3", 
-                      Optional.of(List.of()), 
-                      sdkConfiguration.securitySource()),
-                  _req.build());
-        HttpResponse<InputStream> _httpRes;
-        try {
-            _httpRes = _client.send(_r);
-            if (Utils.statusCodeMatches(_httpRes.statusCode(), "400", "4XX", "500", "5XX")) {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-share-price-ratios-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()),
-                        Optional.of(_httpRes),
-                        Optional.empty());
-            } else {
-                _httpRes = sdkConfiguration.hooks()
-                    .afterSuccess(
-                        new AfterSuccessContextImpl(
-                            "get-share-price-ratios-v3",
-                            Optional.of(List.of()), 
-                            sdkConfiguration.securitySource()),
-                         _httpRes);
-            }
-        } catch (Exception _e) {
-            _httpRes = sdkConfiguration.hooks()
-                    .afterError(
-                        new AfterErrorContextImpl(
-                            "get-share-price-ratios-v3",
-                            Optional.of(List.of()),
-                            sdkConfiguration.securitySource()), 
-                        Optional.empty(),
-                        Optional.of(_e));
+        HTTPRequest _finalReq = _req;
+        RetryConfig _retryConfig;
+        if (options.isPresent() && options.get().retryConfig().isPresent()) {
+            _retryConfig = options.get().retryConfig().get();
+        } else if (this.sdkConfiguration.retryConfig.isPresent()) {
+            _retryConfig = this.sdkConfiguration.retryConfig.get();
+        } else {
+            _retryConfig = RetryConfig.builder()
+                .backoff(BackoffStrategy.builder()
+                            .initialInterval(500, TimeUnit.MILLISECONDS)
+                            .maxInterval(60000, TimeUnit.MILLISECONDS)
+                            .baseFactor((double)(1.5))
+                            .maxElapsedTime(3600000, TimeUnit.MILLISECONDS)
+                            .retryConnectError(true)
+                            .build())
+                .build();
         }
+        List<String> _statusCodes = new ArrayList<>();
+        _statusCodes.add("5XX");
+        Retries _retries = Retries.builder()
+            .action(() -> {
+                HttpRequest _r = null;
+                try {
+                    _r = sdkConfiguration.hooks()
+                        .beforeRequest(
+                            new BeforeRequestContextImpl(
+                                "get-share-price-ratios-v3", 
+                                Optional.of(List.of()), 
+                                sdkConfiguration.securitySource()),
+                            _finalReq.build());
+                } catch (Exception _e) {
+                    throw new NonRetryableException(_e);
+                }
+                try {
+                    return _client.send(_r);
+                } catch (Exception _e) {
+                    return sdkConfiguration.hooks()
+                        .afterError(
+                            new AfterErrorContextImpl(
+                                "get-share-price-ratios-v3",
+                                 Optional.of(List.of()),
+                                 sdkConfiguration.securitySource()), 
+                            Optional.empty(),
+                            Optional.of(_e));
+                }
+            })
+            .retryConfig(_retryConfig)
+            .statusCodes(_statusCodes)
+            .build();
+        HttpResponse<InputStream> _httpRes = sdkConfiguration.hooks()
+                 .afterSuccess(
+                     new AfterSuccessContextImpl(
+                         "get-share-price-ratios-v3", 
+                         Optional.of(List.of()), 
+                         sdkConfiguration.securitySource()),
+                     _retries.run());
         String _contentType = _httpRes
             .headers()
             .firstValue("Content-Type")

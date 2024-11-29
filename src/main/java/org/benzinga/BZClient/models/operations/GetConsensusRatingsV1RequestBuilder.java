@@ -4,11 +4,15 @@
 
 package org.benzinga.BZClient.models.operations;
 
+import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetConsensusRatingsV1RequestBuilder {
 
     private GetConsensusRatingsV1Request request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetConsensusRatingsV1 sdk;
 
     public GetConsensusRatingsV1RequestBuilder(SDKMethodInterfaces.MethodCallGetConsensusRatingsV1 sdk) {
@@ -20,10 +24,25 @@ public class GetConsensusRatingsV1RequestBuilder {
         this.request = request;
         return this;
     }
+                
+    public GetConsensusRatingsV1RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetConsensusRatingsV1RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetConsensusRatingsV1Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
-            request);
+            request,
+            options);
     }
 }

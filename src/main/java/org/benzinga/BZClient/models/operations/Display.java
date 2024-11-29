@@ -14,13 +14,13 @@ public enum Display {
     FLAT("flat"),
     NESTED("nested");
 
+    @JsonValue
     private final String value;
 
     private Display(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

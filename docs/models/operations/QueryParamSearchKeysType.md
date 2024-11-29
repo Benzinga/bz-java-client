@@ -7,5 +7,5 @@ Search keys type
 
 | Name        | Value       |
 | ----------- | ----------- |
-| `REPORT_ID` | "report_id" |
-| `TICKER`    | "ticker"    |
+| `REPORT_ID` | report_id   |
+| `TICKER`    | ticker      |

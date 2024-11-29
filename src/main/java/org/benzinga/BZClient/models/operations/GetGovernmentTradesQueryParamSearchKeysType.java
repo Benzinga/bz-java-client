@@ -14,13 +14,13 @@ public enum GetGovernmentTradesQueryParamSearchKeysType {
     REPORT_ID("report_id"),
     TICKER("ticker");
 
+    @JsonValue
     private final String value;
 
     private GetGovernmentTradesQueryParamSearchKeysType(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

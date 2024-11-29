@@ -7,7 +7,7 @@ Date sort order
 
 | Name        | Value       |
 | ----------- | ----------- |
-| `ANNOUNCED` | "announced" |
-| `EX`        | "ex"        |
-| `PAYABLE`   | "payable"   |
-| `RECORD`    | "record"    |
+| `ANNOUNCED` | announced   |
+| `EX`        | ex          |
+| `PAYABLE`   | payable     |
+| `RECORD`    | record      |

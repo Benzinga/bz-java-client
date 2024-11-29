@@ -14,13 +14,13 @@ public enum GetInsiderTransactionOwnerQueryParamSearchKeysType {
     REPORT_ID("report_id"),
     TICKER("ticker");
 
+    @JsonValue
     private final String value;
 
     private GetInsiderTransactionOwnerQueryParamSearchKeysType(String value) {
         this.value = value;
     }
-
-    @JsonValue
+    
     public String value() {
         return value;
     }

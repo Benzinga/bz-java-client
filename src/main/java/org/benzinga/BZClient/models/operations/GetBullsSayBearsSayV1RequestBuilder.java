@@ -6,11 +6,14 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetBullsSayBearsSayV1RequestBuilder {
 
     private Optional<String> symbols = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetBullsSayBearsSayV1 sdk;
 
     public GetBullsSayBearsSayV1RequestBuilder(SDKMethodInterfaces.MethodCallGetBullsSayBearsSayV1 sdk) {
@@ -28,10 +31,25 @@ public class GetBullsSayBearsSayV1RequestBuilder {
         this.symbols = symbols;
         return this;
     }
+                
+    public GetBullsSayBearsSayV1RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetBullsSayBearsSayV1RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetBullsSayBearsSayV1Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
-            symbols);
+            symbols,
+            options);
     }
 }

@@ -4,11 +4,15 @@
 
 package org.benzinga.BZClient.models.operations;
 
+import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetAnalystInsightsV1RequestBuilder {
 
     private GetAnalystInsightsV1Request request;
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetAnalystInsightsV1 sdk;
 
     public GetAnalystInsightsV1RequestBuilder(SDKMethodInterfaces.MethodCallGetAnalystInsightsV1 sdk) {
@@ -20,10 +24,25 @@ public class GetAnalystInsightsV1RequestBuilder {
         this.request = request;
         return this;
     }
+                
+    public GetAnalystInsightsV1RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetAnalystInsightsV1RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetAnalystInsightsV1Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
-            request);
+            request,
+            options);
     }
 }

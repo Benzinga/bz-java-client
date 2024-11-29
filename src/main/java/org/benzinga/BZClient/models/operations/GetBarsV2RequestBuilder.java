@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetBarsV2RequestBuilder {
@@ -14,6 +16,7 @@ public class GetBarsV2RequestBuilder {
     private String from;
     private Optional<String> to = Optional.empty();
     private Optional<String> interval = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetBarsV2 sdk;
 
     public GetBarsV2RequestBuilder(SDKMethodInterfaces.MethodCallGetBarsV2 sdk) {
@@ -55,13 +58,28 @@ public class GetBarsV2RequestBuilder {
         this.interval = interval;
         return this;
     }
+                
+    public GetBarsV2RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetBarsV2RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetBarsV2Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.get(
             symbols,
             from,
             to,
-            interval);
+            interval,
+            options);
     }
 }

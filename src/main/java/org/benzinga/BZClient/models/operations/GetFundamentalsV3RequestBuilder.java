@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetFundamentalsV3RequestBuilder {
@@ -14,6 +16,7 @@ public class GetFundamentalsV3RequestBuilder {
     private Optional<String> from = Optional.empty();
     private Optional<String> to = Optional.empty();
     private Optional<String> date = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetFundamentalsV3 sdk;
 
     public GetFundamentalsV3RequestBuilder(SDKMethodInterfaces.MethodCallGetFundamentalsV3 sdk) {
@@ -61,13 +64,28 @@ public class GetFundamentalsV3RequestBuilder {
         this.date = date;
         return this;
     }
+                
+    public GetFundamentalsV3RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetFundamentalsV3RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetFundamentalsV3Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getV3(
             symbols,
             from,
             to,
-            date);
+            date,
+            options);
     }
 }

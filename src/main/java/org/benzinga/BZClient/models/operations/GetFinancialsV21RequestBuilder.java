@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetFinancialsV21RequestBuilder {
@@ -14,6 +16,7 @@ public class GetFinancialsV21RequestBuilder {
     private Optional<String> asOf = Optional.empty();
     private Optional<String> period = Optional.empty();
     private Optional<String> reportType = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetFinancialsV21 sdk;
 
     public GetFinancialsV21RequestBuilder(SDKMethodInterfaces.MethodCallGetFinancialsV21 sdk) {
@@ -61,13 +64,28 @@ public class GetFinancialsV21RequestBuilder {
         this.reportType = reportType;
         return this;
     }
+                
+    public GetFinancialsV21RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetFinancialsV21RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetFinancialsV21Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getFinancialsV21(
             symbols,
             asOf,
             period,
-            reportType);
+            reportType,
+            options);
     }
 }

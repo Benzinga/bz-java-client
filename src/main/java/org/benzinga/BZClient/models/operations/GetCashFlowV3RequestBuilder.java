@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.utils.Options;
+import org.benzinga.BZClient.utils.RetryConfig;
 import org.benzinga.BZClient.utils.Utils;
 
 public class GetCashFlowV3RequestBuilder {
@@ -14,6 +16,7 @@ public class GetCashFlowV3RequestBuilder {
     private Optional<String> from = Optional.empty();
     private Optional<String> to = Optional.empty();
     private Optional<String> date = Optional.empty();
+    private Optional<RetryConfig> retryConfig = Optional.empty();
     private final SDKMethodInterfaces.MethodCallGetCashFlowV3 sdk;
 
     public GetCashFlowV3RequestBuilder(SDKMethodInterfaces.MethodCallGetCashFlowV3 sdk) {
@@ -61,13 +64,28 @@ public class GetCashFlowV3RequestBuilder {
         this.date = date;
         return this;
     }
+                
+    public GetCashFlowV3RequestBuilder retryConfig(RetryConfig retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = Optional.of(retryConfig);
+        return this;
+    }
+
+    public GetCashFlowV3RequestBuilder retryConfig(Optional<RetryConfig> retryConfig) {
+        Utils.checkNotNull(retryConfig, "retryConfig");
+        this.retryConfig = retryConfig;
+        return this;
+    }
 
     public GetCashFlowV3Response call() throws Exception {
-
+        Optional<Options> options = Optional.of(Options.builder()
+                                                    .retryConfig(retryConfig)
+                                                    .build());
         return sdk.getCashFlowV3(
             symbols,
             from,
             to,
-            date);
+            date,
+            options);
     }
 }
