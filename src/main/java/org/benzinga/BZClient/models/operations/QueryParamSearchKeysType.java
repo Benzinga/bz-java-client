@@ -11,8 +11,8 @@ import java.lang.String;
  * QueryParamSearchKeysType - Search keys type
  */
 public enum QueryParamSearchKeysType {
-    REPORT_ID(""report_id""),
-    TICKER(""ticker"");
+    REPORT_ID("report_id"),
+    TICKER("ticker");
 
     @JsonValue
     private final String value;

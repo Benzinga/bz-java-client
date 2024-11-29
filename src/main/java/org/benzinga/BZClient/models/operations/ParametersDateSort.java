@@ -11,10 +11,10 @@ import java.lang.String;
  * ParametersDateSort - Date sort order
  */
 public enum ParametersDateSort {
-    ANNOUNCED(""announced""),
-    EX(""ex""),
-    PAYABLE(""payable""),
-    RECORD(""record"");
+    ANNOUNCED("announced"),
+    EX("ex"),
+    PAYABLE("payable"),
+    RECORD("record");
 
     @JsonValue
     private final String value;

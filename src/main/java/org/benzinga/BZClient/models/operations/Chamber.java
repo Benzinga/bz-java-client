@@ -11,8 +11,8 @@ import java.lang.String;
  * Chamber - Chamber
  */
 public enum Chamber {
-    HOUSE(""House""),
-    SENATE(""Senate"");
+    HOUSE("House"),
+    SENATE("Senate");
 
     @JsonValue
     private final String value;

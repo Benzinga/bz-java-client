@@ -11,11 +11,11 @@ import java.lang.String;
  * ParametersDividendYieldOperation - Dividend yield operation
  */
 public enum ParametersDividendYieldOperation {
-    LT(""lt""),
-    LTE(""lte""),
-    EQ(""eq""),
-    GT(""gt""),
-    GTE(""gte"");
+    LT("lt"),
+    LTE("lte"),
+    EQ("eq"),
+    GT("gt"),
+    GTE("gte");
 
     @JsonValue
     private final String value;

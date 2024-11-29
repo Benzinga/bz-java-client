@@ -11,8 +11,8 @@ import java.lang.String;
  * QueryParamChamber - Chamber
  */
 public enum QueryParamChamber {
-    HOUSE(""House""),
-    SENATE(""Senate"");
+    HOUSE("House"),
+    SENATE("Senate");
 
     @JsonValue
     private final String value;

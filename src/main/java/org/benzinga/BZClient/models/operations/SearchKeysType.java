@@ -11,10 +11,10 @@ import java.lang.String;
  * SearchKeysType - Firm
  */
 public enum SearchKeysType {
-    FIRM_ID(""firm_id""),
-    FIRM(""firm""),
-    ANALYST_ID(""analyst_id""),
-    ANALYST_NAME(""analyst_name"");
+    FIRM_ID("firm_id"),
+    FIRM("firm"),
+    ANALYST_ID("analyst_id"),
+    ANALYST_NAME("analyst_name");
 
     @JsonValue
     private final String value;

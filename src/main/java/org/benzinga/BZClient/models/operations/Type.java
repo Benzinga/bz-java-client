@@ -11,16 +11,16 @@ import java.lang.String;
  * Type - Type
  */
 public enum Type {
-    RATINGS(""ratings""),
-    EARNINGS(""earnings""),
-    DIVIDENDS(""dividends""),
-    SPLITS(""splits""),
-    IPOS(""ipos""),
-    OFFERINGS(""offerings""),
-    ECONOMICS(""economics""),
-    GUIDANCE(""guidance""),
-    MA(""ma""),
-    CONFERENCE_CALLS(""conference calls"");
+    RATINGS("ratings"),
+    EARNINGS("earnings"),
+    DIVIDENDS("dividends"),
+    SPLITS("splits"),
+    IPOS("ipos"),
+    OFFERINGS("offerings"),
+    ECONOMICS("economics"),
+    GUIDANCE("guidance"),
+    MA("ma"),
+    CONFERENCE_CALLS("conference calls");
 
     @JsonValue
     private final String value;

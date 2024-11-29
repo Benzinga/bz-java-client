@@ -11,8 +11,8 @@ import java.lang.String;
  * GetInsiderTransactionOwnerQueryParamChamber - Chamber
  */
 public enum GetInsiderTransactionOwnerQueryParamChamber {
-    HOUSE(""House""),
-    SENATE(""Senate"");
+    HOUSE("House"),
+    SENATE("Senate");
 
     @JsonValue
     private final String value;

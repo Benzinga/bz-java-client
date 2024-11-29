@@ -11,8 +11,8 @@ import java.lang.String;
  * Display - Display
  */
 public enum Display {
-    FLAT(""flat""),
-    NESTED(""nested"");
+    FLAT("flat"),
+    NESTED("nested");
 
     @JsonValue
     private final String value;

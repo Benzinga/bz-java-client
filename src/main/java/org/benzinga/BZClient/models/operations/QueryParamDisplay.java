@@ -11,8 +11,8 @@ import java.lang.String;
  * QueryParamDisplay - Display
  */
 public enum QueryParamDisplay {
-    FLAT(""flat""),
-    NESTED(""nested"");
+    FLAT("flat"),
+    NESTED("nested");
 
     @JsonValue
     private final String value;

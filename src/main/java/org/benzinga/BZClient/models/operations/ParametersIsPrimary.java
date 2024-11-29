@@ -11,9 +11,9 @@ import java.lang.String;
  * ParametersIsPrimary - Is Primary
  */
 public enum ParametersIsPrimary {
-    Y(""Y""),
-    N(""N""),
-    ALL(""All"");
+    Y("Y"),
+    N("N"),
+    ALL("All");
 
     @JsonValue
     private final String value;

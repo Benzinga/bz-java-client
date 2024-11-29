@@ -11,8 +11,8 @@ import java.lang.String;
  * PathParamType - Transaction Type
  */
 public enum PathParamType {
-    TRANSACTIONS(""transactions""),
-    FILINGS(""filings"");
+    TRANSACTIONS("transactions"),
+    FILINGS("filings");
 
     @JsonValue
     private final String value;

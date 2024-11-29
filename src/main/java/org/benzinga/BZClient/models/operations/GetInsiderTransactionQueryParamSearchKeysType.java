@@ -11,8 +11,8 @@ import java.lang.String;
  * GetInsiderTransactionQueryParamSearchKeysType - Search keys type
  */
 public enum GetInsiderTransactionQueryParamSearchKeysType {
-    REPORT_ID(""report_id""),
-    TICKER(""ticker"");
+    REPORT_ID("report_id"),
+    TICKER("ticker");
 
     @JsonValue
     private final String value;
