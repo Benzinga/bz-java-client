@@ -1,0 +1,9 @@
+# HttpapiTrendingTickersListAPIResponse
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `data`                                                                                             | List\<[HttpapiTrendingTickersListData](../../models/components/HttpapiTrendingTickersListData.md)> | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
+| `ok`                                                                                               | *Optional\<Boolean>*                                                                               | :heavy_minus_sign:                                                                                 | N/A                                                                                                |

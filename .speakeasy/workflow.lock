@@ -1,0 +1,36 @@
+speakeasyVersion: 1.448.2
+sources:
+    Benzinga APIs:
+        sourceNamespace: benzinga-ap-is
+        sourceRevisionDigest: sha256:1feb94a2ed74d83d2098884fd22b9717f7f124f445d6779143b5e109c1b3b324
+        sourceBlobDigest: sha256:f5369373dad25b962819006ee495ebe982ec9d00b3934a0d15cdb7d060b829a7
+        tags:
+            - latest
+            - 1.0.0
+targets:
+    bzclient:
+        source: Benzinga APIs
+        sourceNamespace: benzinga-ap-is
+        sourceRevisionDigest: sha256:1feb94a2ed74d83d2098884fd22b9717f7f124f445d6779143b5e109c1b3b324
+        sourceBlobDigest: sha256:f5369373dad25b962819006ee495ebe982ec9d00b3934a0d15cdb7d060b829a7
+        codeSamplesNamespace: benzinga-ap-is-java-code-samples
+        codeSamplesRevisionDigest: sha256:6878a529b3fb8570811262fe0b6dcb0ef365dda56ec4fe71075e63693903bdd9
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Benzinga APIs:
+            inputs:
+                - location: /Users/tejasurisetty/Workspace/benzinga/bz-java-client/benzinga_openapi.yaml
+            overlays:
+                - location: .speakeasy/speakeasy-modifications-overlay.yaml
+            registry:
+                location: registry.speakeasyapi.dev/benzinga/benzinga/benzinga-ap-is
+    targets:
+        bzclient:
+            target: java
+            source: Benzinga APIs
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/benzinga/benzinga/benzinga-ap-is-java-code-samples
+                blocking: false

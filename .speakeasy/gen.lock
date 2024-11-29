@@ -1,0 +1,918 @@
+lockVersion: 2.0.0
+id: 5b1af2c6-8e5e-4c4d-ac33-d4c3c9add7de
+management:
+  docChecksum: aa16dc29ded0d50f7e73f53ac247199f
+  docVersion: 1.0.0
+  speakeasyVersion: 1.448.2
+  generationVersion: 2.467.4
+  releaseVersion: 0.1.1
+  configChecksum: 94736d86ee92424a398de92c2eea3007
+features:
+  java:
+    acceptHeaders: 2.81.2
+    additionalDependencies: 0.1.0
+    core: 3.32.2
+    flattening: 2.81.1
+    globalSecurity: 2.82.7
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
+    globalServerURLs: 2.82.1
+    groups: 2.81.2
+    nameOverrides: 2.81.3
+    sdkHooks: 0.1.0
+generatedFiles:
+  - .gitattributes
+  - CONTRIBUTING.md
+  - USAGE.md
+  - build.gradle
+  - docs/models/components/ApiAggregateRating.md
+  - docs/models/components/ApiChannelTag.md
+  - docs/models/components/ApiConsensusRating.md
+  - docs/models/components/ApiImage.md
+  - docs/models/components/ApiNewsItem.md
+  - docs/models/components/ApiNewsRemovedItem.md
+  - docs/models/components/ApiStock.md
+  - docs/models/components/BzhttpError.md
+  - docs/models/components/BzhttpErrorCode.md
+  - docs/models/components/BzhttpResp.md
+  - docs/models/components/HttpapiSecurity.md
+  - docs/models/components/HttpapiTickerTrendAPIResponse.md
+  - docs/models/components/HttpapiTickerTrendData.md
+  - docs/models/components/HttpapiTickerTrendMetrics.md
+  - docs/models/components/HttpapiTrendingTickersListAPIResponse.md
+  - docs/models/components/HttpapiTrendingTickersListData.md
+  - docs/models/components/LogoapiLogoColors.md
+  - docs/models/components/LogoapiLogoRevision.md
+  - docs/models/components/LogoapiLogoRevisionFiles.md
+  - docs/models/components/ModelsAcquisitionJSON.md
+  - docs/models/components/ModelsAnalystInsightsJSON.md
+  - docs/models/components/ModelsAnalystReportRawText.md
+  - docs/models/components/ModelsBullsSayBearsSayJSON.md
+  - docs/models/components/ModelsConferenceJSON.md
+  - docs/models/components/ModelsDividendJSON.md
+  - docs/models/components/ModelsEarningJSON.md
+  - docs/models/components/ModelsEconomicJSON.md
+  - docs/models/components/ModelsEventsJSON.md
+  - docs/models/components/ModelsFDAJSON.md
+  - docs/models/components/ModelsGovernmentTradeJSON.md
+  - docs/models/components/ModelsGuidanceJSON.md
+  - docs/models/components/ModelsIPOJSON.md
+  - docs/models/components/ModelsInsiderTransactionFilingJSON.md
+  - docs/models/components/ModelsNewsquantified.md
+  - docs/models/components/ModelsOfferingJSON.md
+  - docs/models/components/ModelsOptionActivityJSON.md
+  - docs/models/components/ModelsRatingJSON.md
+  - docs/models/components/ModelsRatingsAnalystJSON.md
+  - docs/models/components/ModelsRatingsFirmJSON.md
+  - docs/models/components/ModelsRmvd.md
+  - docs/models/components/ModelsRmvdJSON.md
+  - docs/models/components/ModelsSecurity.md
+  - docs/models/components/ModelsSplitJSON.md
+  - docs/models/components/ModelsSummary.md
+  - docs/models/components/ModelsTranscriptAudioFile.md
+  - docs/models/components/ModelsTranscriptSummary.md
+  - docs/models/components/ModelsTranscriptSummaryAudio.md
+  - docs/models/components/ModelsTranscriptTimestamp.md
+  - docs/models/components/Security.md
+  - docs/models/errors/ApiErrorResponse.md
+  - docs/models/errors/BzhttpResp.md
+  - docs/models/errors/HttpapiTickerTrendAPIResponse.md
+  - docs/models/errors/HttpapiTrendingTickersListAPIResponse.md
+  - docs/models/operations/AggregateType.md
+  - docs/models/operations/Chamber.md
+  - docs/models/operations/Display.md
+  - docs/models/operations/GetAlphaBetaV21Request.md
+  - docs/models/operations/GetAlphaBetaV21Response.md
+  - docs/models/operations/GetAnalystInsightsV1Request.md
+  - docs/models/operations/GetAnalystInsightsV1Response.md
+  - docs/models/operations/GetAnalystReportsRawTextDataRequest.md
+  - docs/models/operations/GetAnalystReportsRawTextDataResponse.md
+  - docs/models/operations/GetAssetClassificationV21Request.md
+  - docs/models/operations/GetAssetClassificationV21Response.md
+  - docs/models/operations/GetBalanceSheetV3Request.md
+  - docs/models/operations/GetBalanceSheetV3Response.md
+  - docs/models/operations/GetBarsV2Request.md
+  - docs/models/operations/GetBarsV2Response.md
+  - docs/models/operations/GetBullsSayBearsSayV1Request.md
+  - docs/models/operations/GetBullsSayBearsSayV1Response.md
+  - docs/models/operations/GetCashFlowV3Request.md
+  - docs/models/operations/GetCashFlowV3Response.md
+  - docs/models/operations/GetCompanyProfileV21Request.md
+  - docs/models/operations/GetCompanyProfileV21Response.md
+  - docs/models/operations/GetCompanyV21Request.md
+  - docs/models/operations/GetCompanyV21Response.md
+  - docs/models/operations/GetConferenceCallsRequest.md
+  - docs/models/operations/GetConferenceCallsResponse.md
+  - docs/models/operations/GetConsensusRatingsV1Request.md
+  - docs/models/operations/GetConsensusRatingsV1Response.md
+  - docs/models/operations/GetDerivedFiguresAndRatiosV3Request.md
+  - docs/models/operations/GetDerivedFiguresAndRatiosV3Response.md
+  - docs/models/operations/GetDividendsRequest.md
+  - docs/models/operations/GetDividendsResponse.md
+  - docs/models/operations/GetDividendsV22Request.md
+  - docs/models/operations/GetDividendsV22Response.md
+  - docs/models/operations/GetEarningRatiosV21Request.md
+  - docs/models/operations/GetEarningRatiosV21Response.md
+  - docs/models/operations/GetEarningsCallTranscriptAudioFilesRequest.md
+  - docs/models/operations/GetEarningsCallTranscriptAudioFilesResponse.md
+  - docs/models/operations/GetEarningsCallTranscriptsRequest.md
+  - docs/models/operations/GetEarningsCallTranscriptsResponse.md
+  - docs/models/operations/GetEarningsQueryParamParametersDateSort.md
+  - docs/models/operations/GetEarningsReportsV21Request.md
+  - docs/models/operations/GetEarningsReportsV21Response.md
+  - docs/models/operations/GetEarningsRequest.md
+  - docs/models/operations/GetEarningsResponse.md
+  - docs/models/operations/GetEconomicsQueryParamParametersImportance.md
+  - docs/models/operations/GetEconomicsRequest.md
+  - docs/models/operations/GetEconomicsResponse.md
+  - docs/models/operations/GetEventsQueryParamParametersImportance.md
+  - docs/models/operations/GetEventsRequest.md
+  - docs/models/operations/GetEventsResponse.md
+  - docs/models/operations/GetFdaRequest.md
+  - docs/models/operations/GetFdaResponse.md
+  - docs/models/operations/GetFinancialsV21Request.md
+  - docs/models/operations/GetFinancialsV21Response.md
+  - docs/models/operations/GetFundamentalsV21Request.md
+  - docs/models/operations/GetFundamentalsV21Response.md
+  - docs/models/operations/GetFundamentalsV2Request.md
+  - docs/models/operations/GetFundamentalsV2Response.md
+  - docs/models/operations/GetFundamentalsV3Request.md
+  - docs/models/operations/GetFundamentalsV3Response.md
+  - docs/models/operations/GetGovernmentTradeReportsRequest.md
+  - docs/models/operations/GetGovernmentTradeReportsResponse.md
+  - docs/models/operations/GetGovernmentTradesQueryParamSearchKeysType.md
+  - docs/models/operations/GetGovernmentTradesRequest.md
+  - docs/models/operations/GetGovernmentTradesResponse.md
+  - docs/models/operations/GetGuidanceQueryParamParametersImportance.md
+  - docs/models/operations/GetGuidanceRequest.md
+  - docs/models/operations/GetGuidanceResponse.md
+  - docs/models/operations/GetIncomeStatementV3Request.md
+  - docs/models/operations/GetIncomeStatementV3Response.md
+  - docs/models/operations/GetInsiderTransactionOwnerQueryParamChamber.md
+  - docs/models/operations/GetInsiderTransactionOwnerQueryParamSearchKeysType.md
+  - docs/models/operations/GetInsiderTransactionOwnerRequest.md
+  - docs/models/operations/GetInsiderTransactionOwnerResponse.md
+  - docs/models/operations/GetInsiderTransactionQueryParamChamber.md
+  - docs/models/operations/GetInsiderTransactionQueryParamSearchKeysType.md
+  - docs/models/operations/GetInsiderTransactionRequest.md
+  - docs/models/operations/GetInsiderTransactionResponse.md
+  - docs/models/operations/GetIposV21Request.md
+  - docs/models/operations/GetIposV21Response.md
+  - docs/models/operations/GetIposV2Request.md
+  - docs/models/operations/GetIposV2Response.md
+  - docs/models/operations/GetMaQueryParamParametersDateSort.md
+  - docs/models/operations/GetMaQueryParamParametersImportance.md
+  - docs/models/operations/GetMaRequest.md
+  - docs/models/operations/GetMaResponse.md
+  - docs/models/operations/GetNewsRequest.md
+  - docs/models/operations/GetNewsResponse.md
+  - docs/models/operations/GetNewsquantifiedDataRequest.md
+  - docs/models/operations/GetNewsquantifiedDataResponse.md
+  - docs/models/operations/GetOfferingsQueryParamParametersImportance.md
+  - docs/models/operations/GetOfferingsRequest.md
+  - docs/models/operations/GetOfferingsResponse.md
+  - docs/models/operations/GetOperationRatiosV21Request.md
+  - docs/models/operations/GetOperationRatiosV21Response.md
+  - docs/models/operations/GetOptionActivityV1QueryParamParametersDateSort.md
+  - docs/models/operations/GetOptionActivityV1Request.md
+  - docs/models/operations/GetOptionActivityV1Response.md
+  - docs/models/operations/GetQuoteDelayedV1Request.md
+  - docs/models/operations/GetQuoteDelayedV1Response.md
+  - docs/models/operations/GetQuoteDelayedV2Request.md
+  - docs/models/operations/GetQuoteDelayedV2Response.md
+  - docs/models/operations/GetRatingsAnalystsRequest.md
+  - docs/models/operations/GetRatingsAnalystsResponse.md
+  - docs/models/operations/GetRatingsFirmsRequest.md
+  - docs/models/operations/GetRatingsFirmsResponse.md
+  - docs/models/operations/GetRatingsQueryParamParametersImportance.md
+  - docs/models/operations/GetRatingsRequest.md
+  - docs/models/operations/GetRatingsResponse.md
+  - docs/models/operations/GetRemovedNewsRequest.md
+  - docs/models/operations/GetRemovedNewsResponse.md
+  - docs/models/operations/GetRemovedRequest.md
+  - docs/models/operations/GetRemovedResponse.md
+  - docs/models/operations/GetSearchLogosRequest.md
+  - docs/models/operations/GetSearchLogosResponse.md
+  - docs/models/operations/GetShareClassProfileV21Request.md
+  - docs/models/operations/GetShareClassProfileV21Response.md
+  - docs/models/operations/GetShareClassV21Request.md
+  - docs/models/operations/GetShareClassV21Response.md
+  - docs/models/operations/GetSharePriceRatiosV3Request.md
+  - docs/models/operations/GetSharePriceRatiosV3Response.md
+  - docs/models/operations/GetSplitsQueryParamParametersImportance.md
+  - docs/models/operations/GetSplitsRequest.md
+  - docs/models/operations/GetSplitsResponse.md
+  - docs/models/operations/GetTickerTrendDataRequest.md
+  - docs/models/operations/GetTickerTrendDataResponse.md
+  - docs/models/operations/GetTickerTrendListDataRequest.md
+  - docs/models/operations/GetTickerTrendListDataResponse.md
+  - docs/models/operations/GetValuationRatiosV21Request.md
+  - docs/models/operations/GetValuationRatiosV21Response.md
+  - docs/models/operations/LogoBulkSyncRequest.md
+  - docs/models/operations/LogoBulkSyncResponse.md
+  - docs/models/operations/ParametersAction.md
+  - docs/models/operations/ParametersDateSearchField.md
+  - docs/models/operations/ParametersDateSort.md
+  - docs/models/operations/ParametersDividendYieldOperation.md
+  - docs/models/operations/ParametersImportance.md
+  - docs/models/operations/ParametersIsPrimary.md
+  - docs/models/operations/PathParamType.md
+  - docs/models/operations/QueryParamChamber.md
+  - docs/models/operations/QueryParamDisplay.md
+  - docs/models/operations/QueryParamParametersDateSearchField.md
+  - docs/models/operations/QueryParamParametersDateSort.md
+  - docs/models/operations/QueryParamParametersImportance.md
+  - docs/models/operations/QueryParamSearchKeysType.md
+  - docs/models/operations/ResponseBody.md
+  - docs/models/operations/SearchKeysType.md
+  - docs/models/operations/Type.md
+  - docs/sdks/analystinsights/README.md
+  - docs/sdks/analystreportsrawtext/README.md
+  - docs/sdks/bars/README.md
+  - docs/sdks/bullsbearssaybearssay/README.md
+  - docs/sdks/bzclient/README.md
+  - docs/sdks/bzclientquotedelayed/README.md
+  - docs/sdks/conferencecalls/README.md
+  - docs/sdks/consensusratings/README.md
+  - docs/sdks/derivedfiguresandratios/README.md
+  - docs/sdks/dividends/README.md
+  - docs/sdks/earningratios/README.md
+  - docs/sdks/earnings/README.md
+  - docs/sdks/earningscalltranscripts/README.md
+  - docs/sdks/economics/README.md
+  - docs/sdks/events/README.md
+  - docs/sdks/fda/README.md
+  - docs/sdks/fundamentals/README.md
+  - docs/sdks/governmenttradereports/README.md
+  - docs/sdks/governmenttrades/README.md
+  - docs/sdks/guidance/README.md
+  - docs/sdks/insidertransaction/README.md
+  - docs/sdks/insidertransactions/README.md
+  - docs/sdks/ipos/README.md
+  - docs/sdks/logos/README.md
+  - docs/sdks/ma/README.md
+  - docs/sdks/news/README.md
+  - docs/sdks/newsquantified/README.md
+  - docs/sdks/offerings/README.md
+  - docs/sdks/operationratios/README.md
+  - docs/sdks/optionactivity/README.md
+  - docs/sdks/quotedelayed/README.md
+  - docs/sdks/ratings/README.md
+  - docs/sdks/ratingsanalysts/README.md
+  - docs/sdks/ratingsfirms/README.md
+  - docs/sdks/removed/README.md
+  - docs/sdks/splits/README.md
+  - docs/sdks/tickertrends/README.md
+  - docs/sdks/valuationratios/README.md
+  - gradle/wrapper/gradle-wrapper.jar
+  - gradle/wrapper/gradle-wrapper.properties
+  - gradlew
+  - gradlew.bat
+  - settings.gradle
+  - src/main/java/org/benzinga/BZClient/AnalystInsights.java
+  - src/main/java/org/benzinga/BZClient/AnalystReportsRawText.java
+  - src/main/java/org/benzinga/BZClient/Bars.java
+  - src/main/java/org/benzinga/BZClient/BullsBearsSayBearsSay.java
+  - src/main/java/org/benzinga/BZClient/Bzclient.java
+  - src/main/java/org/benzinga/BZClient/BzclientQuoteDelayed.java
+  - src/main/java/org/benzinga/BZClient/ConferenceCalls.java
+  - src/main/java/org/benzinga/BZClient/ConsensusRatings.java
+  - src/main/java/org/benzinga/BZClient/DerivedFiguresAndRatios.java
+  - src/main/java/org/benzinga/BZClient/Dividends.java
+  - src/main/java/org/benzinga/BZClient/EarningRatios.java
+  - src/main/java/org/benzinga/BZClient/Earnings.java
+  - src/main/java/org/benzinga/BZClient/EarningsCallTranscripts.java
+  - src/main/java/org/benzinga/BZClient/Economics.java
+  - src/main/java/org/benzinga/BZClient/Events.java
+  - src/main/java/org/benzinga/BZClient/Fda.java
+  - src/main/java/org/benzinga/BZClient/Fundamentals.java
+  - src/main/java/org/benzinga/BZClient/GovernmentTradeReports.java
+  - src/main/java/org/benzinga/BZClient/GovernmentTrades.java
+  - src/main/java/org/benzinga/BZClient/Guidance.java
+  - src/main/java/org/benzinga/BZClient/InsiderTransaction.java
+  - src/main/java/org/benzinga/BZClient/InsiderTransactions.java
+  - src/main/java/org/benzinga/BZClient/Ipos.java
+  - src/main/java/org/benzinga/BZClient/Logos.java
+  - src/main/java/org/benzinga/BZClient/Ma.java
+  - src/main/java/org/benzinga/BZClient/News.java
+  - src/main/java/org/benzinga/BZClient/Newsquantified.java
+  - src/main/java/org/benzinga/BZClient/Offerings.java
+  - src/main/java/org/benzinga/BZClient/OperationRatios.java
+  - src/main/java/org/benzinga/BZClient/OptionActivity.java
+  - src/main/java/org/benzinga/BZClient/Quotedelayed.java
+  - src/main/java/org/benzinga/BZClient/Ratings.java
+  - src/main/java/org/benzinga/BZClient/RatingsAnalysts.java
+  - src/main/java/org/benzinga/BZClient/RatingsFirms.java
+  - src/main/java/org/benzinga/BZClient/Removed.java
+  - src/main/java/org/benzinga/BZClient/SDKConfiguration.java
+  - src/main/java/org/benzinga/BZClient/SecuritySource.java
+  - src/main/java/org/benzinga/BZClient/Splits.java
+  - src/main/java/org/benzinga/BZClient/TickerTrends.java
+  - src/main/java/org/benzinga/BZClient/ValuationRatios.java
+  - src/main/java/org/benzinga/BZClient/models/components/ApiAggregateRating.java
+  - src/main/java/org/benzinga/BZClient/models/components/ApiChannelTag.java
+  - src/main/java/org/benzinga/BZClient/models/components/ApiConsensusRating.java
+  - src/main/java/org/benzinga/BZClient/models/components/ApiImage.java
+  - src/main/java/org/benzinga/BZClient/models/components/ApiNewsItem.java
+  - src/main/java/org/benzinga/BZClient/models/components/ApiNewsRemovedItem.java
+  - src/main/java/org/benzinga/BZClient/models/components/ApiStock.java
+  - src/main/java/org/benzinga/BZClient/models/components/BzhttpError.java
+  - src/main/java/org/benzinga/BZClient/models/components/BzhttpErrorCode.java
+  - src/main/java/org/benzinga/BZClient/models/components/BzhttpResp.java
+  - src/main/java/org/benzinga/BZClient/models/components/HttpapiSecurity.java
+  - src/main/java/org/benzinga/BZClient/models/components/HttpapiTickerTrendAPIResponse.java
+  - src/main/java/org/benzinga/BZClient/models/components/HttpapiTickerTrendData.java
+  - src/main/java/org/benzinga/BZClient/models/components/HttpapiTickerTrendMetrics.java
+  - src/main/java/org/benzinga/BZClient/models/components/HttpapiTrendingTickersListAPIResponse.java
+  - src/main/java/org/benzinga/BZClient/models/components/HttpapiTrendingTickersListData.java
+  - src/main/java/org/benzinga/BZClient/models/components/LogoapiLogoColors.java
+  - src/main/java/org/benzinga/BZClient/models/components/LogoapiLogoRevision.java
+  - src/main/java/org/benzinga/BZClient/models/components/LogoapiLogoRevisionFiles.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsAcquisitionJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsAnalystInsightsJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsAnalystReportRawText.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsBullsSayBearsSayJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsConferenceJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsDividendJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsEarningJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsEconomicJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsEventsJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsFDAJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsGovernmentTradeJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsGuidanceJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsIPOJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsInsiderTransactionFilingJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsNewsquantified.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsOfferingJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsOptionActivityJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsRatingJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsRatingsAnalystJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsRatingsFirmJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsRmvd.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsRmvdJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsSecurity.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsSplitJSON.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsSummary.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsTranscriptAudioFile.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsTranscriptSummary.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsTranscriptSummaryAudio.java
+  - src/main/java/org/benzinga/BZClient/models/components/ModelsTranscriptTimestamp.java
+  - src/main/java/org/benzinga/BZClient/models/components/Security.java
+  - src/main/java/org/benzinga/BZClient/models/errors/APIException.java
+  - src/main/java/org/benzinga/BZClient/models/errors/ApiErrorResponse.java
+  - src/main/java/org/benzinga/BZClient/models/errors/AuthException.java
+  - src/main/java/org/benzinga/BZClient/models/errors/BzhttpResp.java
+  - src/main/java/org/benzinga/BZClient/models/errors/HttpapiTickerTrendAPIResponse.java
+  - src/main/java/org/benzinga/BZClient/models/errors/HttpapiTrendingTickersListAPIResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/AggregateType.java
+  - src/main/java/org/benzinga/BZClient/models/operations/Chamber.java
+  - src/main/java/org/benzinga/BZClient/models/operations/Display.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAlphaBetaV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAlphaBetaV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAlphaBetaV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAnalystInsightsV1Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAnalystInsightsV1RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAnalystInsightsV1Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAnalystReportsRawTextDataRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAnalystReportsRawTextDataRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAnalystReportsRawTextDataResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAssetClassificationV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAssetClassificationV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetAssetClassificationV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetBalanceSheetV3Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetBalanceSheetV3RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetBalanceSheetV3Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetBarsV2Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetBarsV2RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetBarsV2Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetBullsSayBearsSayV1Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetBullsSayBearsSayV1RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetBullsSayBearsSayV1Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetCashFlowV3Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetCashFlowV3RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetCashFlowV3Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetCompanyProfileV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetCompanyProfileV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetCompanyProfileV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetCompanyV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetCompanyV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetCompanyV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetConferenceCallsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetConferenceCallsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetConferenceCallsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetConsensusRatingsV1Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetConsensusRatingsV1RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetConsensusRatingsV1Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetDerivedFiguresAndRatiosV3Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetDerivedFiguresAndRatiosV3RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetDerivedFiguresAndRatiosV3Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetDividendsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetDividendsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetDividendsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetDividendsV22Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetDividendsV22RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetDividendsV22Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningRatiosV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningRatiosV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningRatiosV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsCallTranscriptAudioFilesRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsCallTranscriptAudioFilesRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsCallTranscriptAudioFilesResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsCallTranscriptsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsCallTranscriptsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsCallTranscriptsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsQueryParamParametersDateSort.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsReportsV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsReportsV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsReportsV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEarningsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEconomicsQueryParamParametersImportance.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEconomicsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEconomicsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEconomicsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEventsQueryParamParametersImportance.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEventsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEventsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetEventsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFdaRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFdaRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFdaResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFinancialsV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFinancialsV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFinancialsV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFundamentalsV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFundamentalsV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFundamentalsV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFundamentalsV2Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFundamentalsV2RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFundamentalsV2Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFundamentalsV3Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFundamentalsV3RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetFundamentalsV3Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGovernmentTradeReportsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGovernmentTradeReportsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGovernmentTradeReportsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGovernmentTradesQueryParamSearchKeysType.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGovernmentTradesRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGovernmentTradesRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGovernmentTradesResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGuidanceQueryParamParametersImportance.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGuidanceRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGuidanceRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetGuidanceResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetIncomeStatementV3Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetIncomeStatementV3RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetIncomeStatementV3Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionOwnerQueryParamChamber.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionOwnerQueryParamSearchKeysType.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionOwnerRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionOwnerRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionOwnerResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionQueryParamChamber.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionQueryParamSearchKeysType.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetInsiderTransactionResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetIposV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetIposV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetIposV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetIposV2Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetIposV2RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetIposV2Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetMaQueryParamParametersDateSort.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetMaQueryParamParametersImportance.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetMaRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetMaRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetMaResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetNewsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetNewsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetNewsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetNewsquantifiedDataRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetNewsquantifiedDataRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetNewsquantifiedDataResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOfferingsQueryParamParametersImportance.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOfferingsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOfferingsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOfferingsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOperationRatiosV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOperationRatiosV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOperationRatiosV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOptionActivityV1QueryParamParametersDateSort.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOptionActivityV1Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOptionActivityV1RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetOptionActivityV1Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetQuoteDelayedV1Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetQuoteDelayedV1RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetQuoteDelayedV1Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetQuoteDelayedV2Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetQuoteDelayedV2RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetQuoteDelayedV2Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsAnalystsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsAnalystsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsAnalystsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsFirmsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsFirmsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsFirmsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsQueryParamParametersImportance.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRatingsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRemovedNewsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRemovedNewsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRemovedNewsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRemovedRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRemovedRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetRemovedResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSearchLogosRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSearchLogosRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSearchLogosResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetShareClassProfileV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetShareClassProfileV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetShareClassProfileV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetShareClassV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetShareClassV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetShareClassV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSharePriceRatiosV3Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSharePriceRatiosV3RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSharePriceRatiosV3Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSplitsQueryParamParametersImportance.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSplitsRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSplitsRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetSplitsResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetTickerTrendDataRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetTickerTrendDataRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetTickerTrendDataResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetTickerTrendListDataRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetTickerTrendListDataRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetTickerTrendListDataResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetValuationRatiosV21Request.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetValuationRatiosV21RequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/GetValuationRatiosV21Response.java
+  - src/main/java/org/benzinga/BZClient/models/operations/LogoBulkSyncRequest.java
+  - src/main/java/org/benzinga/BZClient/models/operations/LogoBulkSyncRequestBuilder.java
+  - src/main/java/org/benzinga/BZClient/models/operations/LogoBulkSyncResponse.java
+  - src/main/java/org/benzinga/BZClient/models/operations/ParametersAction.java
+  - src/main/java/org/benzinga/BZClient/models/operations/ParametersDateSearchField.java
+  - src/main/java/org/benzinga/BZClient/models/operations/ParametersDateSort.java
+  - src/main/java/org/benzinga/BZClient/models/operations/ParametersDividendYieldOperation.java
+  - src/main/java/org/benzinga/BZClient/models/operations/ParametersImportance.java
+  - src/main/java/org/benzinga/BZClient/models/operations/ParametersIsPrimary.java
+  - src/main/java/org/benzinga/BZClient/models/operations/PathParamType.java
+  - src/main/java/org/benzinga/BZClient/models/operations/QueryParamChamber.java
+  - src/main/java/org/benzinga/BZClient/models/operations/QueryParamDisplay.java
+  - src/main/java/org/benzinga/BZClient/models/operations/QueryParamParametersDateSearchField.java
+  - src/main/java/org/benzinga/BZClient/models/operations/QueryParamParametersDateSort.java
+  - src/main/java/org/benzinga/BZClient/models/operations/QueryParamParametersImportance.java
+  - src/main/java/org/benzinga/BZClient/models/operations/QueryParamSearchKeysType.java
+  - src/main/java/org/benzinga/BZClient/models/operations/ResponseBody.java
+  - src/main/java/org/benzinga/BZClient/models/operations/SDKMethodInterfaces.java
+  - src/main/java/org/benzinga/BZClient/models/operations/SearchKeysType.java
+  - src/main/java/org/benzinga/BZClient/models/operations/Type.java
+  - src/main/java/org/benzinga/BZClient/utils/BackoffStrategy.java
+  - src/main/java/org/benzinga/BZClient/utils/BigDecimalString.java
+  - src/main/java/org/benzinga/BZClient/utils/BigIntegerString.java
+  - src/main/java/org/benzinga/BZClient/utils/Deserializers.java
+  - src/main/java/org/benzinga/BZClient/utils/EventStream.java
+  - src/main/java/org/benzinga/BZClient/utils/EventStreamLineReader.java
+  - src/main/java/org/benzinga/BZClient/utils/EventStreamMessage.java
+  - src/main/java/org/benzinga/BZClient/utils/EventStreamReader.java
+  - src/main/java/org/benzinga/BZClient/utils/FormMetadata.java
+  - src/main/java/org/benzinga/BZClient/utils/HTTPClient.java
+  - src/main/java/org/benzinga/BZClient/utils/HTTPRequest.java
+  - src/main/java/org/benzinga/BZClient/utils/HeaderMetadata.java
+  - src/main/java/org/benzinga/BZClient/utils/Helpers.java
+  - src/main/java/org/benzinga/BZClient/utils/Hook.java
+  - src/main/java/org/benzinga/BZClient/utils/Hooks.java
+  - src/main/java/org/benzinga/BZClient/utils/JSON.java
+  - src/main/java/org/benzinga/BZClient/utils/LazySingletonValue.java
+  - src/main/java/org/benzinga/BZClient/utils/Metadata.java
+  - src/main/java/org/benzinga/BZClient/utils/MultipartFormMetadata.java
+  - src/main/java/org/benzinga/BZClient/utils/OneOfDeserializer.java
+  - src/main/java/org/benzinga/BZClient/utils/Options.java
+  - src/main/java/org/benzinga/BZClient/utils/PathParamsMetadata.java
+  - src/main/java/org/benzinga/BZClient/utils/QueryParameter.java
+  - src/main/java/org/benzinga/BZClient/utils/QueryParameters.java
+  - src/main/java/org/benzinga/BZClient/utils/QueryParamsMetadata.java
+  - src/main/java/org/benzinga/BZClient/utils/RequestBody.java
+  - src/main/java/org/benzinga/BZClient/utils/RequestMetadata.java
+  - src/main/java/org/benzinga/BZClient/utils/Response.java
+  - src/main/java/org/benzinga/BZClient/utils/Retries.java
+  - src/main/java/org/benzinga/BZClient/utils/RetryConfig.java
+  - src/main/java/org/benzinga/BZClient/utils/Security.java
+  - src/main/java/org/benzinga/BZClient/utils/SecurityMetadata.java
+  - src/main/java/org/benzinga/BZClient/utils/SerializedBody.java
+  - src/main/java/org/benzinga/BZClient/utils/SpeakeasyHTTPClient.java
+  - src/main/java/org/benzinga/BZClient/utils/SpeakeasyMetadata.java
+  - src/main/java/org/benzinga/BZClient/utils/TypedObject.java
+  - src/main/java/org/benzinga/BZClient/utils/Types.java
+  - src/main/java/org/benzinga/BZClient/utils/Utf8UrlEncoder.java
+  - src/main/java/org/benzinga/BZClient/utils/Utils.java
+examples:
+  get-newsquantified-data: {}
+  get-analyst-reports-raw-text-data: {}
+  get-analyst-insights-v1: {}
+  get-ipos-v21:
+    speakeasy-default-get-ipos-v21:
+      responses:
+        "200":
+          text/xml: "0x89AB7e0e54"
+  get-ipos-v2:
+    speakeasy-default-get-ipos-v2:
+      responses:
+        "200":
+          text/xml: "0xae3a82baa3"
+  get-dividends-v22:
+    speakeasy-default-get-dividends-v22:
+      responses:
+        "200":
+          text/xml: "0xDDa22f0C6e"
+  get-dividends:
+    speakeasy-default-get-dividends:
+      responses:
+        "200":
+          text/xml: "0x31b6ddAD21"
+  get-bulls-say-bears-say-v1: {}
+  get-removed:
+    speakeasy-default-get-removed:
+      responses:
+        "200":
+          text/xml: "0xEAaDe8d1Da"
+  get-conference-calls:
+    speakeasy-default-get-conference-calls:
+      responses:
+        "200":
+          text/xml: "0xfdd802C27c"
+  get-earnings:
+    speakeasy-default-get-earnings:
+      responses:
+        "200":
+          text/xml: "0xdFbfB3AEd7"
+  get-economics:
+    speakeasy-default-get-economics:
+      responses:
+        "200":
+          text/xml: "0xEaF53Df33A"
+  get-events:
+    speakeasy-default-get-events:
+      responses:
+        "200":
+          text/xml: "0xdb2b75f30b"
+  get-fda:
+    speakeasy-default-get-fda:
+      responses:
+        "200":
+          text/xml: "0x0aC0F0bf75"
+  get-guidance:
+    speakeasy-default-get-guidance:
+      responses:
+        "200":
+          text/xml: "0xbC5Cdcdec8"
+  get-ma:
+    speakeasy-default-get-ma:
+      responses:
+        "200":
+          text/xml: "0xdbaeE60bAb"
+  get-offerings:
+    speakeasy-default-get-offerings:
+      responses:
+        "200":
+          text/xml: "0xCbBD0fB168"
+  get-ratings:
+    speakeasy-default-get-ratings:
+      responses:
+        "200":
+          text/xml: "0x7df7BfbE88"
+  get-ratings-analysts:
+    speakeasy-default-get-ratings-analysts:
+      responses:
+        "200":
+          text/xml: "0xbFd3b25EE3"
+  get-ratings-firms:
+    speakeasy-default-get-ratings-firms:
+      responses:
+        "200":
+          text/xml: "0xfA720Fe462"
+  get-splits:
+    speakeasy-default-get-splits:
+      responses:
+        "200":
+          text/xml: "0x67c7D1e0f6"
+  get-consensus-ratings-v1: {}
+  get-government-trade-reports: {}
+  get-government-trades: {}
+  get-insider-transaction:
+    speakeasy-default-get-insider-transaction:
+      parameters:
+        path:
+          type: "\"filings\""
+        query: {}
+  get-insider-transaction-owner: {}
+  get-option-activity-v1: {}
+  get-quote-delayed-v1:
+    speakeasy-default-get-quote-delayed-v1:
+      responses:
+        "200":
+          application/json: "<value>"
+  get-quote-delayed-v2:
+    speakeasy-default-get-quote-delayed-v2:
+      responses:
+        "200":
+          application/json: "<value>"
+  get-fundamentals-v21:
+    speakeasy-default-get-fundamentals-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-alpha-beta-v21:
+    speakeasy-default-get-alpha-beta-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-company-v21:
+    speakeasy-default-get-company-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-company-profile-v21:
+    speakeasy-default-get-company-profile-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-share-class-v21:
+    speakeasy-default-get-share-class-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-share-class-profile-v21:
+    speakeasy-default-get-share-class-profile-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-fundamentals-v2:
+    speakeasy-default-get-fundamentals-v2:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-asset-classification-v21:
+    speakeasy-default-get-asset-classification-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-earnings-reports-v21:
+    speakeasy-default-get-earnings-reports-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-financials-v21:
+    speakeasy-default-get-financials-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: ["<value>", "<value>"]
+        "400": {}
+  get-fundamentals-v3:
+    speakeasy-default-get-fundamentals-v3:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-balance-sheet-v3:
+    speakeasy-default-get-balance-sheet-v3:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: ["<value>"]
+        "400": {}
+  get-cash-flow-v3:
+    speakeasy-default-get-cash-flow-v3:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: []
+        "400": {}
+  get-income-statement-v3:
+    speakeasy-default-get-income-statement-v3:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-share-price-ratios-v3:
+    speakeasy-default-get-share-price-ratios-v3:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: ["<value>"]
+        "400": {}
+  get-bars-v2:
+    speakeasy-default-get-bars-v2:
+      parameters:
+        query:
+          symbols: "<value>"
+          from: "<value>"
+  get-earning-ratios-v21:
+    speakeasy-default-get-earning-ratios-v21:
+      responses:
+        "200":
+          application/json: "<value>"
+  get-operation-ratios-v21:
+    speakeasy-default-get-operation-ratios-v21:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-valuation-ratios-v21:
+    speakeasy-default-get-valuation-ratios-v21:
+      responses:
+        "200":
+          application/json: "<value>"
+  get-derived-figures-and-ratios-v3:
+    speakeasy-default-get-derived-figures-and-ratios-v3:
+      parameters:
+        query:
+          symbols: "<value>"
+      responses:
+        "200":
+          application/json: "<value>"
+  get-earnings-call-transcripts: {}
+  get-earnings-call-transcript-audio-files: {}
+  logo-bulk-sync:
+    speakeasy-default-logo-bulk-sync:
+      parameters:
+        query:
+          search_keys: "<value>"
+          fields: ["<value>", "<value>"]
+  get-search-logos:
+    speakeasy-default-get-search-logos:
+      parameters:
+        query:
+          search_keys: "<value>"
+          fields: "<value>"
+  get-news:
+    speakeasy-default-get-news:
+      responses:
+        "200":
+          text/xml: "0x9F9Ba29cFa"
+  get-removed-news:
+    speakeasy-default-get-removed-news:
+      responses:
+        "200":
+          application/json: []
+          text/xml: "0xe1B742C9ea"
+  get-ticker-trend-data:
+    speakeasy-default-get-ticker-trend-data:
+      parameters:
+        query:
+          interval: "<value>"
+          tickers: "<value>"
+          source: "<value>"
+  get-ticker-trend-list-data:
+    speakeasy-default-get-ticker-trend-list-data:
+      parameters:
+        query:
+          interval: "<value>"
+          tickers: "<value>"
+          source: "<value>"
+generatedTests: {}

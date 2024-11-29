@@ -1,0 +1,20 @@
+# ApiNewsItem
+
+
+## Fields
+
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `author`                                                         | *Optional\<String>*                                              | :heavy_minus_sign:                                               | N/A                                                              |
+| `body`                                                           | *Optional\<String>*                                              | :heavy_minus_sign:                                               | N/A                                                              |
+| `channels`                                                       | List\<[ApiChannelTag](../../models/components/ApiChannelTag.md)> | :heavy_minus_sign:                                               | N/A                                                              |
+| `created`                                                        | *Optional\<String>*                                              | :heavy_minus_sign:                                               | N/A                                                              |
+| `id`                                                             | *Optional\<Long>*                                                | :heavy_minus_sign:                                               | N/A                                                              |
+| `image`                                                          | List\<[ApiImage](../../models/components/ApiImage.md)>           | :heavy_minus_sign:                                               | N/A                                                              |
+| `originalId`                                                     | *Optional\<Long>*                                                | :heavy_minus_sign:                                               | N/A                                                              |
+| `stocks`                                                         | List\<[ApiStock](../../models/components/ApiStock.md)>           | :heavy_minus_sign:                                               | N/A                                                              |
+| `tags`                                                           | List\<[ApiChannelTag](../../models/components/ApiChannelTag.md)> | :heavy_minus_sign:                                               | N/A                                                              |
+| `teaser`                                                         | *Optional\<String>*                                              | :heavy_minus_sign:                                               | N/A                                                              |
+| `title`                                                          | *Optional\<String>*                                              | :heavy_minus_sign:                                               | N/A                                                              |
+| `updated`                                                        | *Optional\<String>*                                              | :heavy_minus_sign:                                               | N/A                                                              |
+| `url`                                                            | *Optional\<String>*                                              | :heavy_minus_sign:                                               | N/A                                                              |
