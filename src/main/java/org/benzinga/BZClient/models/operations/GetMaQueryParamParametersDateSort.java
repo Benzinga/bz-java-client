@@ -15,13 +15,13 @@ public enum GetMaQueryParamParametersDateSort {
     COMPLETED("completed"),
     ANNOUNCED("announced");
 
-    @JsonValue
     private final String value;
 
     private GetMaQueryParamParametersDateSort(String value) {
         this.value = value;
     }
-    
+
+    @JsonValue
     public String value() {
         return value;
     }

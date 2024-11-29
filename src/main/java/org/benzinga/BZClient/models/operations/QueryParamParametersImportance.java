@@ -17,13 +17,13 @@ public enum QueryParamParametersImportance {
     FOUR(4L),
     FIVE(5L);
 
-    @JsonValue
     private final long value;
 
     private QueryParamParametersImportance(long value) {
         this.value = value;
     }
-    
+
+    @JsonValue
     public long value() {
         return value;
     }

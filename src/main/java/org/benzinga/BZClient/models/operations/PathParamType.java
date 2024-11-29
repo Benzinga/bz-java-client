@@ -14,13 +14,13 @@ public enum PathParamType {
     TRANSACTIONS("transactions"),
     FILINGS("filings");
 
-    @JsonValue
     private final String value;
 
     private PathParamType(String value) {
         this.value = value;
     }
-    
+
+    @JsonValue
     public String value() {
         return value;
     }

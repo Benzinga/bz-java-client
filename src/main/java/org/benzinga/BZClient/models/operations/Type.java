@@ -22,13 +22,13 @@ public enum Type {
     MA("ma"),
     CONFERENCE_CALLS("conference calls");
 
-    @JsonValue
     private final String value;
 
     private Type(String value) {
         this.value = value;
     }
-    
+
+    @JsonValue
     public String value() {
         return value;
     }

@@ -17,13 +17,13 @@ public enum ParametersDividendYieldOperation {
     GT("gt"),
     GTE("gte");
 
-    @JsonValue
     private final String value;
 
     private ParametersDividendYieldOperation(String value) {
         this.value = value;
     }
-    
+
+    @JsonValue
     public String value() {
         return value;
     }

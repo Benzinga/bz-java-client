@@ -14,13 +14,13 @@ public enum GetInsiderTransactionQueryParamChamber {
     HOUSE("House"),
     SENATE("Senate");
 
-    @JsonValue
     private final String value;
 
     private GetInsiderTransactionQueryParamChamber(String value) {
         this.value = value;
     }
-    
+
+    @JsonValue
     public String value() {
         return value;
     }

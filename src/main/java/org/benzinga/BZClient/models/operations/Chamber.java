@@ -14,13 +14,12 @@ public enum Chamber {
     HOUSE("House"),
     SENATE("Senate");
 
-
     private final String value;
 
     private Chamber(String value) {
         this.value = value;
     }
-    
+
     @JsonValue
     public String value() {
         return value;
