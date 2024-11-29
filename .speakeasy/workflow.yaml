@@ -12,6 +12,12 @@ targets:
     bzclient:
         target: java
         source: Benzinga APIs
+        publish:
+            java:
+                ossrhUsername: $ossrh_username
+                ossrhPassword: $ossrh_password
+                gpgSecretKey: $java_gpg_secret_key
+                gpgPassPhrase: $java_gpg_passphrase
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/benzinga/benzinga/benzinga-ap-is-java-code-samples
