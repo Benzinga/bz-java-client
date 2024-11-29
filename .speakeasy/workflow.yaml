@@ -3,7 +3,7 @@ speakeasyVersion: latest
 sources:
     Benzinga APIs:
         inputs:
-            - location: /Users/tejasurisetty/Workspace/benzinga/bz-java-client/benzinga_openapi.yaml
+            - location: openapi.yaml
         overlays:
             - location: .speakeasy/speakeasy-modifications-overlay.yaml
         registry:
