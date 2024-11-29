@@ -3,8 +3,6 @@ sources: {}
 targets:
     bzclient:
         source: BZ_APIs
-        codeSamplesNamespace: bz-java-client-code-samples
-        codeSamplesRevisionDigest: sha256:7cd3cf7a12b2c66a2fd247d1401cf14f9b3fafa358e2422f46e2c78492a3782c
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
