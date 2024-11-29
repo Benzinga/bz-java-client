@@ -1,7 +1,7 @@
 workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
-    Benzinga APIs:
+    BZ_APIs:
         inputs:
             - location: openapi.yaml
         overlays:
@@ -12,7 +12,7 @@ sources:
 targets:
     bzclient:
         target: java
-        source: Benzinga APIs
+        source: BZ_APIs
         publish:
             java:
                 ossrhUsername: $ossrh_username
