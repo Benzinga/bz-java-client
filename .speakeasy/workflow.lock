@@ -1,17 +1,10 @@
 speakeasyVersion: 1.448.2
-sources:
-    BZ_APIs:
-        sourceNamespace: benzinga-ap-is
-        sourceRevisionDigest: sha256:1feb94a2ed74d83d2098884fd22b9717f7f124f445d6779143b5e109c1b3b324
-        sourceBlobDigest: sha256:f5369373dad25b962819006ee495ebe982ec9d00b3934a0d15cdb7d060b829a7
-        tags:
-            - latest
-            - 1.0.0
+sources: {}
 targets:
     bzclient:
         source: BZ_APIs
-        codeSamplesNamespace: benzinga-ap-is-java-code-samples
-        codeSamplesRevisionDigest: sha256:c7d627623805b223fc0751b47ff2b4929506ae3234004beb21f18493dabee5c8
+        codeSamplesNamespace: bz-java-client-code-samples
+        codeSamplesRevisionDigest: sha256:7cd3cf7a12b2c66a2fd247d1401cf14f9b3fafa358e2422f46e2c78492a3782c
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -23,7 +16,7 @@ workflow:
                 - location: .speakeasy/speakeasy-modifications-overlay.yaml
             output: mintlify-docs
             registry:
-                location: registry.speakeasyapi.dev/benzinga/benzinga/benzinga-ap-is
+                location: registry.speakeasyapi.dev/benzinga/benzinga/bz-java-client
     targets:
         bzclient:
             target: java
@@ -36,5 +29,5 @@ workflow:
                     gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/benzinga/benzinga/benzinga-ap-is-java-code-samples
+                    location: registry.speakeasyapi.dev/benzinga/benzinga/bz-java-client-code-samples
                 blocking: false
