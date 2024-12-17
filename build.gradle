@@ -41,7 +41,7 @@ model {
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
-    archiveBaseName = "BZClient"
+    archiveBaseName = "bzclient"
 
     into("META-INF/maven/org.benzinga/BZClient") {
         from("$buildDir/pom.xml")
