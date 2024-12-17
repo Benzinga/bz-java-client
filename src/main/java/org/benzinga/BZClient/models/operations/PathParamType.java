@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * PathParamType - Transaction Type
@@ -23,5 +25,14 @@ public enum PathParamType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<PathParamType> fromValue(String value) {
+        for (PathParamType o: PathParamType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

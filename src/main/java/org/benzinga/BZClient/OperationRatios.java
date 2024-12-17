@@ -107,10 +107,10 @@ public class OperationRatios implements
                 GetOperationRatiosV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -140,7 +140,7 @@ public class OperationRatios implements
                             new BeforeRequestContextImpl(
                                 "get-operation-ratios-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -153,7 +153,7 @@ public class OperationRatios implements
                             new AfterErrorContextImpl(
                                 "get-operation-ratios-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -166,7 +166,7 @@ public class OperationRatios implements
                      new AfterSuccessContextImpl(
                          "get-operation-ratios-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

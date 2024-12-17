@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * QueryParamParametersDateSearchField - Date search field
@@ -23,5 +25,14 @@ public enum QueryParamParametersDateSearchField {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<QueryParamParametersDateSearchField> fromValue(String value) {
+        for (QueryParamParametersDateSearchField o: QueryParamParametersDateSearchField.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

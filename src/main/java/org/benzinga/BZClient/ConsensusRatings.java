@@ -93,10 +93,10 @@ public class ConsensusRatings implements
                 GetConsensusRatingsV1Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -126,7 +126,7 @@ public class ConsensusRatings implements
                             new BeforeRequestContextImpl(
                                 "get-consensus-ratings-v1", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -139,7 +139,7 @@ public class ConsensusRatings implements
                             new AfterErrorContextImpl(
                                 "get-consensus-ratings-v1",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -152,7 +152,7 @@ public class ConsensusRatings implements
                      new AfterSuccessContextImpl(
                          "get-consensus-ratings-v1", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

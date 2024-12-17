@@ -3,17 +3,17 @@ id: 5b1af2c6-8e5e-4c4d-ac33-d4c3c9add7de
 management:
   docChecksum: 482b6448351f80b5766b7c2de88572e9
   docVersion: 1.0.0
-  speakeasyVersion: 1.448.2
-  generationVersion: 2.467.4
-  releaseVersion: 0.2.6
-  configChecksum: eb4f32fbb806e5e85694ec38d2d1065a
+  speakeasyVersion: 1.456.0
+  generationVersion: 2.481.0
+  releaseVersion: 0.3.0
+  configChecksum: a31688734a09b82bac5ad39b794dc9e3
   repoURL: https://github.com/Benzinga/bz-java-client.git
   published: true
 features:
   java:
     acceptHeaders: 2.81.2
     additionalDependencies: 0.1.0
-    core: 3.32.2
+    core: 3.33.3
     flattening: 2.81.1
     globalSecurity: 2.82.7
     globalSecurityCallbacks: 0.1.0
@@ -606,6 +606,7 @@ generatedFiles:
   - src/main/java/org/benzinga/BZClient/utils/Security.java
   - src/main/java/org/benzinga/BZClient/utils/SecurityMetadata.java
   - src/main/java/org/benzinga/BZClient/utils/SerializedBody.java
+  - src/main/java/org/benzinga/BZClient/utils/SessionManager.java
   - src/main/java/org/benzinga/BZClient/utils/SpeakeasyHTTPClient.java
   - src/main/java/org/benzinga/BZClient/utils/SpeakeasyMetadata.java
   - src/main/java/org/benzinga/BZClient/utils/TypedObject.java
@@ -613,106 +614,178 @@ generatedFiles:
   - src/main/java/org/benzinga/BZClient/utils/Utf8UrlEncoder.java
   - src/main/java/org/benzinga/BZClient/utils/Utils.java
 examples:
-  get-newsquantified-data: {}
-  get-analyst-reports-raw-text-data: {}
-  get-analyst-insights-v1: {}
+  get-newsquantified-data:
+    speakeasy-default-get-newsquantified-data:
+      responses:
+        "200":
+          application/json: [{}, {}]
+        "404":
+          application/json: {}
+  get-analyst-reports-raw-text-data:
+    speakeasy-default-get-analyst-reports-raw-text-data:
+      responses:
+        "200":
+          application/json: [{}, {}]
+  get-analyst-insights-v1:
+    speakeasy-default-get-analyst-insights-v1:
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
   get-ipos-v21:
     speakeasy-default-get-ipos-v21:
       responses:
         "200":
           text/xml: "0x89AB7e0e54"
+          application/json: {}
   get-ipos-v2:
     speakeasy-default-get-ipos-v2:
       responses:
         "200":
           text/xml: "0xae3a82baa3"
+          application/json: {}
   get-dividends-v22:
     speakeasy-default-get-dividends-v22:
       responses:
         "200":
           text/xml: "0xDDa22f0C6e"
+          application/json: {}
   get-dividends:
     speakeasy-default-get-dividends:
       responses:
         "200":
           text/xml: "0x31b6ddAD21"
-  get-bulls-say-bears-say-v1: {}
+          application/json: {}
+  get-bulls-say-bears-say-v1:
+    speakeasy-default-get-bulls-say-bears-say-v1:
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
   get-removed:
     speakeasy-default-get-removed:
       responses:
         "200":
           text/xml: "0xEAaDe8d1Da"
+          application/json: {}
   get-conference-calls:
     speakeasy-default-get-conference-calls:
       responses:
         "200":
           text/xml: "0xfdd802C27c"
+          application/json: {}
   get-earnings:
     speakeasy-default-get-earnings:
       responses:
         "200":
           text/xml: "0xdFbfB3AEd7"
+          application/json: {}
   get-economics:
     speakeasy-default-get-economics:
       responses:
         "200":
           text/xml: "0xEaF53Df33A"
+          application/json: {}
   get-events:
     speakeasy-default-get-events:
       responses:
         "200":
           text/xml: "0xdb2b75f30b"
+          application/json: {}
   get-fda:
     speakeasy-default-get-fda:
       responses:
         "200":
           text/xml: "0x0aC0F0bf75"
+          application/json: {}
   get-guidance:
     speakeasy-default-get-guidance:
       responses:
         "200":
           text/xml: "0xbC5Cdcdec8"
+          application/json: {}
   get-ma:
     speakeasy-default-get-ma:
       responses:
         "200":
           text/xml: "0xdbaeE60bAb"
+          application/json: {}
   get-offerings:
     speakeasy-default-get-offerings:
       responses:
         "200":
           text/xml: "0xCbBD0fB168"
+          application/json: {}
   get-ratings:
     speakeasy-default-get-ratings:
       responses:
         "200":
           text/xml: "0x7df7BfbE88"
+          application/json: {}
   get-ratings-analysts:
     speakeasy-default-get-ratings-analysts:
       responses:
         "200":
           text/xml: "0xbFd3b25EE3"
+          application/json: {}
   get-ratings-firms:
     speakeasy-default-get-ratings-firms:
       responses:
         "200":
           text/xml: "0xfA720Fe462"
+          application/json: {}
   get-splits:
     speakeasy-default-get-splits:
       responses:
         "200":
           text/xml: "0x67c7D1e0f6"
-  get-consensus-ratings-v1: {}
-  get-government-trade-reports: {}
-  get-government-trades: {}
+          application/json: {}
+  get-consensus-ratings-v1:
+    speakeasy-default-get-consensus-ratings-v1:
+      responses:
+        "200":
+          application/json: {}
+  get-government-trade-reports:
+    speakeasy-default-get-government-trade-reports:
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+  get-government-trades:
+    speakeasy-default-get-government-trades:
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
   get-insider-transaction:
     speakeasy-default-get-insider-transaction:
       parameters:
         path:
           type: "filings"
         query: {}
-  get-insider-transaction-owner: {}
-  get-option-activity-v1: {}
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+  get-insider-transaction-owner:
+    speakeasy-default-get-insider-transaction-owner:
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+  get-option-activity-v1:
+    speakeasy-default-get-option-activity-v1:
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
   get-quote-delayed-v1:
     speakeasy-default-get-quote-delayed-v1:
       responses:
@@ -803,7 +876,8 @@ examples:
       responses:
         "200":
           application/json: ["<value>", "<value>"]
-        "400": {}
+        "400":
+          application/json: {}
   get-fundamentals-v3:
     speakeasy-default-get-fundamentals-v3:
       parameters:
@@ -820,7 +894,8 @@ examples:
       responses:
         "200":
           application/json: ["<value>"]
-        "400": {}
+        "400":
+          application/json: {}
   get-cash-flow-v3:
     speakeasy-default-get-cash-flow-v3:
       parameters:
@@ -829,7 +904,8 @@ examples:
       responses:
         "200":
           application/json: []
-        "400": {}
+        "400":
+          application/json: {}
   get-income-statement-v3:
     speakeasy-default-get-income-statement-v3:
       parameters:
@@ -846,13 +922,19 @@ examples:
       responses:
         "200":
           application/json: ["<value>"]
-        "400": {}
+        "400":
+          application/json: {}
   get-bars-v2:
     speakeasy-default-get-bars-v2:
       parameters:
         query:
           symbols: "<value>"
           from: "<value>"
+      responses:
+        "200":
+          application/json: [{}, {}]
+        "400":
+          application/json: {}
   get-earning-ratios-v21:
     speakeasy-default-get-earning-ratios-v21:
       responses:
@@ -879,25 +961,44 @@ examples:
       responses:
         "200":
           application/json: "<value>"
-  get-earnings-call-transcripts: {}
-  get-earnings-call-transcript-audio-files: {}
+  get-earnings-call-transcripts:
+    speakeasy-default-get-earnings-call-transcripts:
+      responses:
+        "200":
+          application/json: [{}, {}]
+  get-earnings-call-transcript-audio-files:
+    speakeasy-default-get-earnings-call-transcript-audio-files:
+      responses:
+        "200":
+          application/json: [{}, {}, {}]
   logo-bulk-sync:
     speakeasy-default-logo-bulk-sync:
       parameters:
         query:
           search_keys: "<value>"
           fields: ["<value>", "<value>"]
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
   get-search-logos:
     speakeasy-default-get-search-logos:
       parameters:
         query:
           search_keys: "<value>"
           fields: "<value>"
+      responses:
+        "200":
+          application/json: [{}]
+        "400":
+          application/json: {}
   get-news:
     speakeasy-default-get-news:
       responses:
         "200":
           text/xml: "0x9F9Ba29cFa"
+          application/json: [{}, {}]
   get-removed-news:
     speakeasy-default-get-removed-news:
       responses:
@@ -911,6 +1012,13 @@ examples:
           interval: "<value>"
           tickers: "<value>"
           source: "<value>"
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
   get-ticker-trend-list-data:
     speakeasy-default-get-ticker-trend-list-data:
       parameters:
@@ -918,4 +1026,11 @@ examples:
           interval: "<value>"
           tickers: "<value>"
           source: "<value>"
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
 generatedTests: {}

@@ -98,10 +98,10 @@ public class BullsBearsSayBearsSay implements
                 GetBullsSayBearsSayV1Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -131,7 +131,7 @@ public class BullsBearsSayBearsSay implements
                             new BeforeRequestContextImpl(
                                 "get-bulls-say-bears-say-v1", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -144,7 +144,7 @@ public class BullsBearsSayBearsSay implements
                             new AfterErrorContextImpl(
                                 "get-bulls-say-bears-say-v1",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -157,7 +157,7 @@ public class BullsBearsSayBearsSay implements
                      new AfterSuccessContextImpl(
                          "get-bulls-say-bears-say-v1", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

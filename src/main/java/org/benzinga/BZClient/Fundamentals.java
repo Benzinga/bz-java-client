@@ -164,10 +164,10 @@ public class Fundamentals implements
                 GetFundamentalsV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -197,7 +197,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-fundamentals-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -210,7 +210,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-fundamentals-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -223,7 +223,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-fundamentals-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -335,10 +335,10 @@ public class Fundamentals implements
                 GetAlphaBetaV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -368,7 +368,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-alpha-beta-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -381,7 +381,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-alpha-beta-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -394,7 +394,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-alpha-beta-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -506,10 +506,10 @@ public class Fundamentals implements
                 GetCompanyV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -539,7 +539,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-company-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -552,7 +552,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-company-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -565,7 +565,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-company-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -677,10 +677,10 @@ public class Fundamentals implements
                 GetCompanyProfileV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -710,7 +710,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-company-profile-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -723,7 +723,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-company-profile-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -736,7 +736,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-company-profile-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -848,10 +848,10 @@ public class Fundamentals implements
                 GetShareClassV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -881,7 +881,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-share-class-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -894,7 +894,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-share-class-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -907,7 +907,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-share-class-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -1019,10 +1019,10 @@ public class Fundamentals implements
                 GetShareClassProfileV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -1052,7 +1052,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-share-class-profile-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -1065,7 +1065,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-share-class-profile-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -1078,7 +1078,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-share-class-profile-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -1190,10 +1190,10 @@ public class Fundamentals implements
                 GetFundamentalsV2Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -1223,7 +1223,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-fundamentals-v2", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -1236,7 +1236,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-fundamentals-v2",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -1249,7 +1249,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-fundamentals-v2", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -1361,10 +1361,10 @@ public class Fundamentals implements
                 GetAssetClassificationV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -1394,7 +1394,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-asset-classification-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -1407,7 +1407,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-asset-classification-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -1420,7 +1420,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-asset-classification-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -1532,10 +1532,10 @@ public class Fundamentals implements
                 GetEarningsReportsV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -1565,7 +1565,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-earnings-reports-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -1578,7 +1578,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-earnings-reports-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -1591,7 +1591,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-earnings-reports-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -1703,10 +1703,10 @@ public class Fundamentals implements
                 GetFinancialsV21Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -1736,7 +1736,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-financials-v21", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -1749,7 +1749,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-financials-v21",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -1762,7 +1762,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-financials-v21", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -1888,10 +1888,10 @@ public class Fundamentals implements
                 GetFundamentalsV3Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -1921,7 +1921,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-fundamentals-v3", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -1934,7 +1934,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-fundamentals-v3",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -1947,7 +1947,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-fundamentals-v3", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -2059,10 +2059,10 @@ public class Fundamentals implements
                 GetBalanceSheetV3Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -2092,7 +2092,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-balance-sheet-v3", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -2105,7 +2105,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-balance-sheet-v3",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -2118,7 +2118,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-balance-sheet-v3", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -2244,10 +2244,10 @@ public class Fundamentals implements
                 GetCashFlowV3Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -2277,7 +2277,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-cash-flow-v3", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -2290,7 +2290,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-cash-flow-v3",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -2303,7 +2303,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-cash-flow-v3", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -2429,10 +2429,10 @@ public class Fundamentals implements
                 GetIncomeStatementV3Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -2462,7 +2462,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-income-statement-v3", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -2475,7 +2475,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-income-statement-v3",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -2488,7 +2488,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-income-statement-v3", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -2600,10 +2600,10 @@ public class Fundamentals implements
                 GetSharePriceRatiosV3Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -2633,7 +2633,7 @@ public class Fundamentals implements
                             new BeforeRequestContextImpl(
                                 "get-share-price-ratios-v3", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -2646,7 +2646,7 @@ public class Fundamentals implements
                             new AfterErrorContextImpl(
                                 "get-share-price-ratios-v3",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -2659,7 +2659,7 @@ public class Fundamentals implements
                      new AfterSuccessContextImpl(
                          "get-share-price-ratios-v3", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

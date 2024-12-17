@@ -93,10 +93,10 @@ public class ConferenceCalls implements
                 GetConferenceCallsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -126,7 +126,7 @@ public class ConferenceCalls implements
                             new BeforeRequestContextImpl(
                                 "get-conference-calls", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -139,7 +139,7 @@ public class ConferenceCalls implements
                             new AfterErrorContextImpl(
                                 "get-conference-calls",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -152,7 +152,7 @@ public class ConferenceCalls implements
                      new AfterSuccessContextImpl(
                          "get-conference-calls", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

@@ -94,10 +94,10 @@ public class AnalystInsights implements
                 GetAnalystInsightsV1Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -127,7 +127,7 @@ public class AnalystInsights implements
                             new BeforeRequestContextImpl(
                                 "get-analyst-insights-v1", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -140,7 +140,7 @@ public class AnalystInsights implements
                             new AfterErrorContextImpl(
                                 "get-analyst-insights-v1",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -153,7 +153,7 @@ public class AnalystInsights implements
                      new AfterSuccessContextImpl(
                          "get-analyst-insights-v1", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

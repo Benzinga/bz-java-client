@@ -112,10 +112,10 @@ public class EarningsCallTranscripts implements
                 GetEarningsCallTranscriptsRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -145,7 +145,7 @@ public class EarningsCallTranscripts implements
                             new BeforeRequestContextImpl(
                                 "get-earnings-call-transcripts", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -158,7 +158,7 @@ public class EarningsCallTranscripts implements
                             new AfterErrorContextImpl(
                                 "get-earnings-call-transcripts",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -171,7 +171,7 @@ public class EarningsCallTranscripts implements
                      new AfterSuccessContextImpl(
                          "get-earnings-call-transcripts", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()
@@ -281,10 +281,10 @@ public class EarningsCallTranscripts implements
                 GetEarningsCallTranscriptAudioFilesRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -314,7 +314,7 @@ public class EarningsCallTranscripts implements
                             new BeforeRequestContextImpl(
                                 "get-earnings-call-transcript-audio-files", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -327,7 +327,7 @@ public class EarningsCallTranscripts implements
                             new AfterErrorContextImpl(
                                 "get-earnings-call-transcript-audio-files",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -340,7 +340,7 @@ public class EarningsCallTranscripts implements
                      new AfterSuccessContextImpl(
                          "get-earnings-call-transcript-audio-files", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

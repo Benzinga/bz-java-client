@@ -5,6 +5,8 @@
 package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * ParametersImportance - Importance
@@ -26,5 +28,14 @@ public enum ParametersImportance {
     
     public long value() {
         return value;
+    }
+    
+    public static Optional<ParametersImportance> fromValue(long value) {
+        for (ParametersImportance o: ParametersImportance.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

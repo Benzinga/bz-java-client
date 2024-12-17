@@ -102,10 +102,10 @@ public class Quotedelayed implements
                 GetQuoteDelayedV1Request.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -135,7 +135,7 @@ public class Quotedelayed implements
                             new BeforeRequestContextImpl(
                                 "get-quote-delayed-v1", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -148,7 +148,7 @@ public class Quotedelayed implements
                             new AfterErrorContextImpl(
                                 "get-quote-delayed-v1",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -161,7 +161,7 @@ public class Quotedelayed implements
                      new AfterSuccessContextImpl(
                          "get-quote-delayed-v1", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

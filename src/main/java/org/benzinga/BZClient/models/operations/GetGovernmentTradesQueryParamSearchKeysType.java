@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * GetGovernmentTradesQueryParamSearchKeysType - Search keys type
@@ -23,5 +25,14 @@ public enum GetGovernmentTradesQueryParamSearchKeysType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<GetGovernmentTradesQueryParamSearchKeysType> fromValue(String value) {
+        for (GetGovernmentTradesQueryParamSearchKeysType o: GetGovernmentTradesQueryParamSearchKeysType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

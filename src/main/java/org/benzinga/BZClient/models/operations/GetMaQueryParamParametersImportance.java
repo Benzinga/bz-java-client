@@ -5,6 +5,8 @@
 package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * GetMaQueryParamParametersImportance - Importance
@@ -26,5 +28,14 @@ public enum GetMaQueryParamParametersImportance {
     
     public long value() {
         return value;
+    }
+    
+    public static Optional<GetMaQueryParamParametersImportance> fromValue(long value) {
+        for (GetMaQueryParamParametersImportance o: GetMaQueryParamParametersImportance.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

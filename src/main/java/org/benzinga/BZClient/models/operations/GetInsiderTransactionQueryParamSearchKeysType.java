@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * GetInsiderTransactionQueryParamSearchKeysType - Search keys type
@@ -23,5 +25,14 @@ public enum GetInsiderTransactionQueryParamSearchKeysType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<GetInsiderTransactionQueryParamSearchKeysType> fromValue(String value) {
+        for (GetInsiderTransactionQueryParamSearchKeysType o: GetInsiderTransactionQueryParamSearchKeysType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

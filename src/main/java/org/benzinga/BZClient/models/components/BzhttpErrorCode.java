@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.components;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 public enum BzhttpErrorCode {
     UNSUPPORTED_MESSAGE_TYPE("unsupported_message_type"),
@@ -31,5 +33,14 @@ public enum BzhttpErrorCode {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<BzhttpErrorCode> fromValue(String value) {
+        for (BzhttpErrorCode o: BzhttpErrorCode.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

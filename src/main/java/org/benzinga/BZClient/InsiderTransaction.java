@@ -96,10 +96,10 @@ public class InsiderTransaction implements
                 GetInsiderTransactionRequest.class,
                 request, 
                 null));
-
+        
+        Optional<SecuritySource> _hookSecuritySource = this.sdkConfiguration.securitySource();
         Utils.configureSecurity(_req,  
                 this.sdkConfiguration.securitySource.getSecurity());
-
         HTTPClient _client = this.sdkConfiguration.defaultClient;
         HTTPRequest _finalReq = _req;
         RetryConfig _retryConfig;
@@ -129,7 +129,7 @@ public class InsiderTransaction implements
                             new BeforeRequestContextImpl(
                                 "get-insider-transaction", 
                                 Optional.of(List.of()), 
-                                sdkConfiguration.securitySource()),
+                                _hookSecuritySource),
                             _finalReq.build());
                 } catch (Exception _e) {
                     throw new NonRetryableException(_e);
@@ -142,7 +142,7 @@ public class InsiderTransaction implements
                             new AfterErrorContextImpl(
                                 "get-insider-transaction",
                                  Optional.of(List.of()),
-                                 sdkConfiguration.securitySource()), 
+                                 _hookSecuritySource), 
                             Optional.empty(),
                             Optional.of(_e));
                 }
@@ -155,7 +155,7 @@ public class InsiderTransaction implements
                      new AfterSuccessContextImpl(
                          "get-insider-transaction", 
                          Optional.of(List.of()), 
-                         sdkConfiguration.securitySource()),
+                         _hookSecuritySource),
                      _retries.run());
         String _contentType = _httpRes
             .headers()

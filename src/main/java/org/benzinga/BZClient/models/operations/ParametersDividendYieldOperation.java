@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * ParametersDividendYieldOperation - Dividend yield operation
@@ -26,5 +28,14 @@ public enum ParametersDividendYieldOperation {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<ParametersDividendYieldOperation> fromValue(String value) {
+        for (ParametersDividendYieldOperation o: ParametersDividendYieldOperation.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

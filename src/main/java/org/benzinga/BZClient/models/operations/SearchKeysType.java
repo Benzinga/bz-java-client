@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * SearchKeysType - Firm
@@ -25,5 +27,14 @@ public enum SearchKeysType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<SearchKeysType> fromValue(String value) {
+        for (SearchKeysType o: SearchKeysType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * QueryParamSearchKeysType - Search keys type
@@ -23,5 +25,14 @@ public enum QueryParamSearchKeysType {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<QueryParamSearchKeysType> fromValue(String value) {
+        for (QueryParamSearchKeysType o: QueryParamSearchKeysType.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

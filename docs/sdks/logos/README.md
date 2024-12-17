@@ -35,6 +35,7 @@ public class Application {
         LogoBulkSyncRequest req = LogoBulkSyncRequest.builder()
                 .searchKeys("<value>")
                 .fields(List.of(
+                    "<value>",
                     "<value>"))
                 .build();
 

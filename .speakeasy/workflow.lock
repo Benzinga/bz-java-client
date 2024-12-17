@@ -1,10 +1,10 @@
-speakeasyVersion: 1.448.2
+speakeasyVersion: 1.456.0
 sources: {}
 targets:
     bzclient:
         source: BZ_APIs
         codeSamplesNamespace: bz-java-client-code-samples
-        codeSamplesRevisionDigest: sha256:7cd3cf7a12b2c66a2fd247d1401cf14f9b3fafa358e2422f46e2c78492a3782c
+        codeSamplesRevisionDigest: sha256:8c11f33238a73e61daead7c93bce451aa9cd0d54b21637b1187fa2e88baf6417
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

@@ -6,6 +6,8 @@ package org.benzinga.BZClient.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.lang.String;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * QueryParamChamber - Chamber
@@ -23,5 +25,14 @@ public enum QueryParamChamber {
     
     public String value() {
         return value;
+    }
+    
+    public static Optional<QueryParamChamber> fromValue(String value) {
+        for (QueryParamChamber o: QueryParamChamber.values()) {
+            if (Objects.deepEquals(o.value, value)) {
+                return Optional.of(o);
+            }
+        }
+        return Optional.empty();
     }
 }

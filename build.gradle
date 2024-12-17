@@ -63,7 +63,7 @@ tasks.withType(Javadoc) {
 }
 
 group = "org.benzinga"
-version = "0.2.6"
+version = "0.3.0"
 
 sourcesJar {
     archiveBaseName = "BZClient"
@@ -101,7 +101,7 @@ publishing {
         maven(MavenPublication) {
             groupId = 'org.benzinga'
             artifactId = 'BZClient'
-            version = '0.2.6'
+            version = '0.3.0'
 
             from components.java
 
