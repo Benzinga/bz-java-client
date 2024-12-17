@@ -6,7 +6,9 @@ package org.benzinga.BZClient;
 
 import java.lang.String;
 import java.util.Optional;
+import org.benzinga.BZClient.hooks.SDKHooks;
 import org.benzinga.BZClient.utils.HTTPClient;
+import org.benzinga.BZClient.utils.Hook.SdkInitData;
 import org.benzinga.BZClient.utils.Hooks;
 import org.benzinga.BZClient.utils.RetryConfig;
 
@@ -53,7 +55,11 @@ class SDKConfiguration {
      * Initializes state (for example hooks).
      **/
     public void initialize() {
-
+        SDKHooks.initialize(_hooks);
+        // apply the sdk init hook immediately
+        SdkInitData data = _hooks.sdkInit(new SdkInitData(serverUrl, defaultClient));
+        this.serverUrl = data.baseUrl();
+        this.defaultClient = data.client();
     }
 
     

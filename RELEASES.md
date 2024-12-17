@@ -27,3 +27,13 @@ Based on:
 - [java v0.2.2] .
 ### Releases
 - [Maven Central v0.2.2] https://central.sonatype.com/artifact/org.benzinga/BZClient/0.2.2 - .
+
+## 2024-11-29 15:58:10
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.448.2 (2.467.4) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v0.2.7] .
+### Releases
+- [Maven Central v0.2.7] https://central.sonatype.com/artifact/org.benzinga/BZClient/0.2.7 - .
