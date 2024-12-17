@@ -1,18 +1,17 @@
 workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
-    BZ_APIs:
+    bz-apis:
         inputs:
             - location: openapi.yaml
         overlays:
             - location: .speakeasy/speakeasy-modifications-overlay.yaml
-        output: mintlify-docs
         registry:
             location: registry.speakeasyapi.dev/benzinga/benzinga/bz-java-client
 targets:
     bzclient:
         target: java
-        source: BZ_APIs
+        source: bz-apis
         publish:
             java:
                 ossrhUsername: $ossrh_username

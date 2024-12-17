@@ -356,11 +356,6 @@ public class Bzclient {
             this.sdkConfiguration.retryConfig = Optional.of(retryConfig);
             return this;
         }
-        // Visible for testing, will be accessed via reflection
-        void _hooks(org.benzinga.BZClient.utils.Hooks hooks) {
-            sdkConfiguration.setHooks(hooks);    
-        }
-        
         /**
          * Builds a new instance of the SDK.
          * @return The SDK instance.

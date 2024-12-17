@@ -6,9 +6,7 @@ package org.benzinga.BZClient;
 
 import java.lang.String;
 import java.util.Optional;
-import org.benzinga.BZClient.hooks.SDKHooks;
 import org.benzinga.BZClient.utils.HTTPClient;
-import org.benzinga.BZClient.utils.Hook.SdkInitData;
 import org.benzinga.BZClient.utils.Hooks;
 import org.benzinga.BZClient.utils.RetryConfig;
 
@@ -29,7 +27,7 @@ class SDKConfiguration {
     public int serverIdx = 0;
     private static final String LANGUAGE = "java";
     public static final String OPENAPI_DOC_VERSION = "1.0.0";
-    public static final String SDK_VERSION = "0.3.0";
+    public static final String SDK_VERSION = "0.3.4";
     public static final String GEN_VERSION = "2.481.0";
     private static final String BASE_PACKAGE = "org.benzinga.BZClient";
     public static final String USER_AGENT = 
@@ -55,11 +53,7 @@ class SDKConfiguration {
      * Initializes state (for example hooks).
      **/
     public void initialize() {
-        SDKHooks.initialize(_hooks);
-        // apply the sdk init hook immediately
-        SdkInitData data = _hooks.sdkInit(new SdkInitData(serverUrl, defaultClient));
-        this.serverUrl = data.baseUrl();
-        this.defaultClient = data.client();
+
     }
 
     
