@@ -5,8 +5,8 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.456.0
   generationVersion: 2.481.0
-  releaseVersion: 0.3.4
-  configChecksum: d0d5cabfac97105f72cfb86c806c3891
+  releaseVersion: 0.3.5
+  configChecksum: 8e785fcfe21470f66e5ac34e752d40c8
   repoURL: https://github.com/Benzinga/bz-java-client.git
   published: true
 features:

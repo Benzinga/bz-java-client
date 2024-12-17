@@ -48,7 +48,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'org.benzinga:BZClient:0.3.4'
+implementation 'org.benzinga:BZClient:0.3.5'
 ```
 
 Maven:
@@ -56,7 +56,7 @@ Maven:
 <dependency>
     <groupId>org.benzinga</groupId>
     <artifactId>BZClient</artifactId>
-    <version>0.3.4</version>
+    <version>0.3.5</version>
 </dependency>
 ```
 

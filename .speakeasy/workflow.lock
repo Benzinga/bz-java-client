@@ -13,8 +13,6 @@ targets:
         sourceNamespace: bz-java-client
         sourceRevisionDigest: sha256:9f2f39cea742f152e4e3f68eff31c351aa44452674855134145c8b61dee4fee7
         sourceBlobDigest: sha256:97ab45e06208ba917f406d570a086dbcebe7c4b3c50b7d12f0760e7ffad024c9
-        codeSamplesNamespace: bz-java-client-code-samples
-        codeSamplesRevisionDigest: sha256:e4fb47b7de35128dd4e9b39410fa730e96becdc1356c148e91b21cfe818a200e
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
