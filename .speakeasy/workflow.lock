@@ -8,7 +8,7 @@ sources:
             - latest
             - 1.0.0
 targets:
-    bzclient:
+    BZClient:
         source: bz-apis
         sourceNamespace: bz-java-client
         sourceRevisionDigest: sha256:9f2f39cea742f152e4e3f68eff31c351aa44452674855134145c8b61dee4fee7
@@ -25,7 +25,7 @@ workflow:
             registry:
                 location: registry.speakeasyapi.dev/benzinga/benzinga/bz-java-client
     targets:
-        bzclient:
+        BZClient:
             target: java
             source: bz-apis
             publish:
