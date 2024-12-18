@@ -41,7 +41,7 @@ model {
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
-    archiveBaseName = "BZClient"
+    archiveBaseName = "bzclient"
 
     into("META-INF/maven/org.benzinga/BZClient") {
         from("$buildDir/pom.xml")
@@ -66,11 +66,11 @@ group = "org.benzinga"
 version = "0.3.5"
 
 sourcesJar {
-    archiveBaseName = "BZClient"
+    archiveBaseName = "bzclient"
 }
 
 javadocJar {
-    archiveBaseName = "BZClient"
+    archiveBaseName = "bzclient"
 }
 sonatypeCentralUpload {
     // This is your Sonatype generated username
@@ -100,7 +100,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId = 'org.benzinga'
-            artifactId = 'BZClient'
+            artifactId = 'bzclient'
             version = '0.3.5'
 
             from components.java
