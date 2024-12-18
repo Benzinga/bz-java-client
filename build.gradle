@@ -41,7 +41,7 @@ model {
 
 jar {
     dependsOn(":generatePomFileForMavenPublication")
-    archiveBaseName = "bzclient"
+    archiveBaseName = "BZClient"
 
     into("META-INF/maven/org.benzinga/BZClient") {
         from("$buildDir/pom.xml")
@@ -106,12 +106,12 @@ publishing {
             from components.java
 
             pom {
-                name = 'My Company Java SDK'
-                description = 'SDK enabling Java developers to easily integrate with the My Company API.'
-                url = 'https://github.com/owner/repo'
+                name = 'Benzinga Java SDK'
+                description = 'SDK enabling Java developers to easily integrate with Benzinga API.'
+                url = 'https://github.com/Benzinga/bz-java-client'
                 scm {
-                    url = 'github.com/owner/repo'
-                    connection = 'scm:git:ssh://git@github.com/owner/repo.git'
+                    url = 'github.com/Benzinga/bz-java-client'
+                    connection = 'scm:git:ssh://git@github.com/Benzinga/bz-java-client.git'
                 }
                 licenses {
                     license {
@@ -121,14 +121,14 @@ publishing {
                 }
                 developers {
                     developer {
-                        name = 'My Company'
-                        organization = 'My Company'
-                        email = 'info@mycompany.com'
+                        name = 'Teja Surisetty'
+                        organization = 'Benzinga'
+                        email = 'tejasurisetty@benzinga.com'
                     }
                 }
                 organization {
-                    name = 'My Company'
-                    url = 'www.mycompany.com'
+                    name = 'Benzinga'
+                    url = 'www.benzinga.com'
                 }
             }
         }
