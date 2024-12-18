@@ -16,9 +16,9 @@ Get derived figures and ratios for a list of symbols
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetDerivedFiguresAndRatiosV3Response;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetDerivedFiguresAndRatiosV3Response;
 
 public class Application {
 

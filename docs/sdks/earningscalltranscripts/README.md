@@ -17,10 +17,10 @@ Get Earnings Call Transcripts
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetEarningsCallTranscriptsResponse;
 import java.lang.Exception;
 import java.util.List;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetEarningsCallTranscriptsResponse;
 
 public class Application {
 
@@ -74,10 +74,10 @@ Get Earnings Call Transcript Audio Files
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetEarningsCallTranscriptAudioFilesResponse;
 import java.lang.Exception;
 import java.util.List;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetEarningsCallTranscriptAudioFilesResponse;
 
 public class Application {
 

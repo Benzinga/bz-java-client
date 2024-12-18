@@ -17,10 +17,10 @@ Returns a list of dividends
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetDividendsV22Request;
+import io.bzclient.bzclient.models.operations.GetDividendsV22Response;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetDividendsV22Request;
-import org.benzinga.BZClient.models.operations.GetDividendsV22Response;
 
 public class Application {
 
@@ -69,10 +69,10 @@ Returns a list of dividends
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetDividendsRequest;
+import io.bzclient.bzclient.models.operations.GetDividendsResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetDividendsRequest;
-import org.benzinga.BZClient.models.operations.GetDividendsResponse;
 
 public class Application {
 

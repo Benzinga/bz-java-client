@@ -16,10 +16,10 @@ Returns merger and acquisition data
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetMaRequest;
+import io.bzclient.bzclient.models.operations.GetMaResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetMaRequest;
-import org.benzinga.BZClient.models.operations.GetMaResponse;
 
 public class Application {
 

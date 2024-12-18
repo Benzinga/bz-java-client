@@ -16,10 +16,10 @@ Returns the economic calendar data
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetEconomicsRequest;
+import io.bzclient.bzclient.models.operations.GetEconomicsResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetEconomicsRequest;
-import org.benzinga.BZClient.models.operations.GetEconomicsResponse;
 
 public class Application {
 

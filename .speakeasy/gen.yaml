@@ -1,6 +1,6 @@
 configVersion: 2.0.0
 generation:
-  sdkClassName: Bzclient
+  sdkClassName: bzclient
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
@@ -13,18 +13,18 @@ generation:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
 java:
-  version: 0.3.5
+  version: 0.3.6
   additionalDependencies: []
   additionalPlugins: []
-  artifactID: BZClient
+  artifactID: bzclient
   clientServerStatusCodesAsErrors: true
-  companyEmail: info@mycompany.com
-  companyName: My Company
-  companyURL: www.mycompany.com
+  companyEmail: tejasurisetty@benzinga.com
+  companyName: Benzinga
+  companyURL: www.benzinga.com
   defaultErrorName: APIException
   flattenGlobalSecurity: true
-  githubURL: github.com/owner/repo
-  groupID: org.benzinga
+  githubURL: github.com/Benzinga/bz-java-client
+  groupID: io.bzclient
   imports:
     option: openapi
     paths:

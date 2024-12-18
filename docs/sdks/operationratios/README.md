@@ -16,9 +16,9 @@ Get operation ratios for a list of symbols
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetOperationRatiosV21Response;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetOperationRatiosV21Response;
 
 public class Application {
 

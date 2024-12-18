@@ -16,12 +16,12 @@ Get Insider Transaction
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.errors.ApiErrorResponse;
+import io.bzclient.bzclient.models.operations.GetInsiderTransactionRequest;
+import io.bzclient.bzclient.models.operations.GetInsiderTransactionResponse;
+import io.bzclient.bzclient.models.operations.PathParamType;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.errors.ApiErrorResponse;
-import org.benzinga.BZClient.models.operations.GetInsiderTransactionRequest;
-import org.benzinga.BZClient.models.operations.GetInsiderTransactionResponse;
-import org.benzinga.BZClient.models.operations.PathParamType;
 
 public class Application {
 

@@ -17,12 +17,12 @@ Get Logos for given search keys
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.errors.BzhttpResp;
+import io.bzclient.bzclient.models.operations.LogoBulkSyncRequest;
+import io.bzclient.bzclient.models.operations.LogoBulkSyncResponse;
 import java.lang.Exception;
 import java.util.List;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.errors.BzhttpResp;
-import org.benzinga.BZClient.models.operations.LogoBulkSyncRequest;
-import org.benzinga.BZClient.models.operations.LogoBulkSyncResponse;
 
 public class Application {
 
@@ -76,11 +76,11 @@ Get Logos for given search keys
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.errors.BzhttpResp;
+import io.bzclient.bzclient.models.operations.GetSearchLogosRequest;
+import io.bzclient.bzclient.models.operations.GetSearchLogosResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.errors.BzhttpResp;
-import org.benzinga.BZClient.models.operations.GetSearchLogosRequest;
-import org.benzinga.BZClient.models.operations.GetSearchLogosResponse;
 
 public class Application {
 

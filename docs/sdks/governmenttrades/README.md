@@ -16,11 +16,11 @@ Get Government Trades
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.errors.ApiErrorResponse;
+import io.bzclient.bzclient.models.operations.GetGovernmentTradesRequest;
+import io.bzclient.bzclient.models.operations.GetGovernmentTradesResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.errors.ApiErrorResponse;
-import org.benzinga.BZClient.models.operations.GetGovernmentTradesRequest;
-import org.benzinga.BZClient.models.operations.GetGovernmentTradesResponse;
 
 public class Application {
 

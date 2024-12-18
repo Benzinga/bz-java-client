@@ -16,11 +16,11 @@ Get Newsquantified Data
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.errors.BzhttpResp;
+import io.bzclient.bzclient.models.operations.GetNewsquantifiedDataRequest;
+import io.bzclient.bzclient.models.operations.GetNewsquantifiedDataResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.errors.BzhttpResp;
-import org.benzinga.BZClient.models.operations.GetNewsquantifiedDataRequest;
-import org.benzinga.BZClient.models.operations.GetNewsquantifiedDataResponse;
 
 public class Application {
 

@@ -16,10 +16,10 @@ Get Events
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetEventsRequest;
+import io.bzclient.bzclient.models.operations.GetEventsResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetEventsRequest;
-import org.benzinga.BZClient.models.operations.GetEventsResponse;
 
 public class Application {
 

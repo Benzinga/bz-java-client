@@ -16,11 +16,11 @@ Get Insider Transaction Owner
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.errors.ApiErrorResponse;
+import io.bzclient.bzclient.models.operations.GetInsiderTransactionOwnerRequest;
+import io.bzclient.bzclient.models.operations.GetInsiderTransactionOwnerResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.errors.ApiErrorResponse;
-import org.benzinga.BZClient.models.operations.GetInsiderTransactionOwnerRequest;
-import org.benzinga.BZClient.models.operations.GetInsiderTransactionOwnerResponse;
 
 public class Application {
 

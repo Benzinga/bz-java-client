@@ -16,10 +16,10 @@ Get Removed from v2 endpoint
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetRemovedResponse;
+import io.bzclient.bzclient.models.operations.Type;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetRemovedResponse;
-import org.benzinga.BZClient.models.operations.Type;
 
 public class Application {
 

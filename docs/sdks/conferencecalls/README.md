@@ -16,10 +16,10 @@ Returns Conference Calls data
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetConferenceCallsRequest;
+import io.bzclient.bzclient.models.operations.GetConferenceCallsResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetConferenceCallsRequest;
-import org.benzinga.BZClient.models.operations.GetConferenceCallsResponse;
 
 public class Application {
 

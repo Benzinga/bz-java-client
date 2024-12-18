@@ -16,10 +16,10 @@ Returns the guidance data
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetGuidanceRequest;
+import io.bzclient.bzclient.models.operations.GetGuidanceResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetGuidanceRequest;
-import org.benzinga.BZClient.models.operations.GetGuidanceResponse;
 
 public class Application {
 

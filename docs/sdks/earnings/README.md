@@ -16,10 +16,10 @@ Returns the earnings data
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetEarningsRequest;
+import io.bzclient.bzclient.models.operations.GetEarningsResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetEarningsRequest;
-import org.benzinga.BZClient.models.operations.GetEarningsResponse;
 
 public class Application {
 

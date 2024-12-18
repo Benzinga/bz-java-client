@@ -16,10 +16,10 @@ Returns the available firms providing analyst ratings
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetRatingsFirmsRequest;
+import io.bzclient.bzclient.models.operations.GetRatingsFirmsResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetRatingsFirmsRequest;
-import org.benzinga.BZClient.models.operations.GetRatingsFirmsResponse;
 
 public class Application {
 

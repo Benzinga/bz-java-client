@@ -16,10 +16,10 @@ Get Bars V2
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.errors.BzhttpResp;
+import io.bzclient.bzclient.models.operations.GetBarsV2Response;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.errors.BzhttpResp;
-import org.benzinga.BZClient.models.operations.GetBarsV2Response;
 
 public class Application {
 

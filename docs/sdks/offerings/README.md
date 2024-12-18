@@ -16,10 +16,10 @@ Returns Secondary Offering data
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetOfferingsRequest;
+import io.bzclient.bzclient.models.operations.GetOfferingsResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetOfferingsRequest;
-import org.benzinga.BZClient.models.operations.GetOfferingsResponse;
 
 public class Application {
 

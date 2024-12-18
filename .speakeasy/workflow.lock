@@ -2,17 +2,19 @@ speakeasyVersion: 1.456.0
 sources:
     bz-apis:
         sourceNamespace: bz-java-client
-        sourceRevisionDigest: sha256:9f2f39cea742f152e4e3f68eff31c351aa44452674855134145c8b61dee4fee7
+        sourceRevisionDigest: sha256:0a53032b7cad7cb3854655825bc9d96c43ecb50853b3a8299cb395622ff287ef
         sourceBlobDigest: sha256:97ab45e06208ba917f406d570a086dbcebe7c4b3c50b7d12f0760e7ffad024c9
         tags:
             - latest
             - 1.0.0
 targets:
-    BZClient:
+    bzclient:
         source: bz-apis
         sourceNamespace: bz-java-client
-        sourceRevisionDigest: sha256:9f2f39cea742f152e4e3f68eff31c351aa44452674855134145c8b61dee4fee7
+        sourceRevisionDigest: sha256:0a53032b7cad7cb3854655825bc9d96c43ecb50853b3a8299cb395622ff287ef
         sourceBlobDigest: sha256:97ab45e06208ba917f406d570a086dbcebe7c4b3c50b7d12f0760e7ffad024c9
+        codeSamplesNamespace: bz-java-client-code-samples
+        codeSamplesRevisionDigest: sha256:851836d88cd31d3ab6a9cfcf9329358df08f7b970b695f74dae2a6c0df1edd68
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -25,7 +27,7 @@ workflow:
             registry:
                 location: registry.speakeasyapi.dev/benzinga/benzinga/bz-java-client
     targets:
-        BZClient:
+        bzclient:
             target: java
             source: bz-apis
             publish:

@@ -48,15 +48,15 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'org.benzinga:BZClient:0.3.5'
+implementation 'io.bzclient:bzclient:0.3.6'
 ```
 
 Maven:
 ```xml
 <dependency>
-    <groupId>org.benzinga</groupId>
-    <artifactId>BZClient</artifactId>
-    <version>0.3.5</version>
+    <groupId>io.bzclient</groupId>
+    <artifactId>bzclient</artifactId>
+    <version>0.3.6</version>
 </dependency>
 ```
 
@@ -83,9 +83,9 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetAnalystReportsRawTextDataResponse;
 
 public class Application {
 
@@ -123,9 +123,9 @@ To authenticate with the API the `apiKeyAuth` parameter must be set when initial
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetAnalystReportsRawTextDataResponse;
 
 public class Application {
 
@@ -335,12 +335,12 @@ To change the default retry strategy for a single API call, you can provide a `R
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
+import io.bzclient.bzclient.utils.BackoffStrategy;
+import io.bzclient.bzclient.utils.RetryConfig;
 import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetAnalystReportsRawTextDataResponse;
-import org.benzinga.BZClient.utils.BackoffStrategy;
-import org.benzinga.BZClient.utils.RetryConfig;
 
 public class Application {
 
@@ -376,12 +376,12 @@ If you'd like to override the default retry strategy for all operations that sup
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
+import io.bzclient.bzclient.utils.BackoffStrategy;
+import io.bzclient.bzclient.utils.RetryConfig;
 import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetAnalystReportsRawTextDataResponse;
-import org.benzinga.BZClient.utils.BackoffStrategy;
-import org.benzinga.BZClient.utils.RetryConfig;
 
 public class Application {
 
@@ -431,11 +431,11 @@ By default, an API error will throw a `models/errors/APIException` exception. Wh
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.errors.ApiErrorResponse;
+import io.bzclient.bzclient.models.operations.GetAnalystInsightsV1Request;
+import io.bzclient.bzclient.models.operations.GetAnalystInsightsV1Response;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.errors.ApiErrorResponse;
-import org.benzinga.BZClient.models.operations.GetAnalystInsightsV1Request;
-import org.benzinga.BZClient.models.operations.GetAnalystInsightsV1Response;
 
 public class Application {
 
@@ -480,9 +480,9 @@ You can override the default server globally using the `.serverIndex(int serverI
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetAnalystReportsRawTextDataResponse;
 
 public class Application {
 
@@ -511,9 +511,9 @@ The default server can also be overridden globally using the `.serverURL(String 
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetAnalystReportsRawTextDataResponse;
 
 public class Application {
 

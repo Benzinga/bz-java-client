@@ -2,9 +2,9 @@
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetAnalystReportsRawTextDataResponse;
 
 public class Application {
 

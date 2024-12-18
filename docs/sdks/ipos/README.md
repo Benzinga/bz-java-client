@@ -17,10 +17,10 @@ Returns the IPOs data
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetIposV21Request;
+import io.bzclient.bzclient.models.operations.GetIposV21Response;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetIposV21Request;
-import org.benzinga.BZClient.models.operations.GetIposV21Response;
 
 public class Application {
 
@@ -69,10 +69,10 @@ Returns the IPOs data
 ```java
 package hello.world;
 
+import io.bzclient.bzclient.Bzclient;
+import io.bzclient.bzclient.models.operations.GetIposV2Request;
+import io.bzclient.bzclient.models.operations.GetIposV2Response;
 import java.lang.Exception;
-import org.benzinga.BZClient.Bzclient;
-import org.benzinga.BZClient.models.operations.GetIposV2Request;
-import org.benzinga.BZClient.models.operations.GetIposV2Response;
 
 public class Application {
 

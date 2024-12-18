@@ -9,7 +9,7 @@ sources:
         registry:
             location: registry.speakeasyapi.dev/benzinga/benzinga/bz-java-client
 targets:
-    BZClient:
+    bzclient:
         target: java
         source: bz-apis
         publish:
