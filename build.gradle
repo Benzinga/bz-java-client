@@ -80,9 +80,9 @@ sonatypeCentralUpload {
 
     // This is a list of files to upload. Ideally you would point to your jar file, source and javadoc jar (required by central)
     archives = files(
-      "$buildDir/libs/BZClient-${version}.jar",
-      "$buildDir/libs/BZClient-${version}-sources.jar",
-      "$buildDir/libs/BZClient-${version}-javadoc.jar"
+      "$buildDir/libs/bzclient-${version}.jar",
+      "$buildDir/libs/bzclient-${version}-sources.jar",
+      "$buildDir/libs/bzclient-${version}-javadoc.jar"
     )
 
     // This is the pom file to upload. This is required by central
