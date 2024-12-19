@@ -16,9 +16,9 @@ Returns analyst ratings data
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetRatingsRequest;
-import io.bzclient.bzclient.models.operations.GetRatingsResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetRatingsRequest;
+import com.benzinga.bzclient.models.operations.GetRatingsResponse;
 import java.lang.Exception;
 
 public class Application {

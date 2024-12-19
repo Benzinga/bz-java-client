@@ -16,9 +16,9 @@ Returns the guidance data
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetGuidanceRequest;
-import io.bzclient.bzclient.models.operations.GetGuidanceResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetGuidanceRequest;
+import com.benzinga.bzclient.models.operations.GetGuidanceResponse;
 import java.lang.Exception;
 
 public class Application {

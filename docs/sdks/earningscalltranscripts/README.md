@@ -17,8 +17,8 @@ Get Earnings Call Transcripts
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetEarningsCallTranscriptsResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetEarningsCallTranscriptsResponse;
 import java.lang.Exception;
 import java.util.List;
 
@@ -74,8 +74,8 @@ Get Earnings Call Transcript Audio Files
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetEarningsCallTranscriptAudioFilesResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetEarningsCallTranscriptAudioFilesResponse;
 import java.lang.Exception;
 import java.util.List;
 

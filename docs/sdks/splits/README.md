@@ -16,9 +16,9 @@ Returns splits calendar data
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetSplitsRequest;
-import io.bzclient.bzclient.models.operations.GetSplitsResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetSplitsRequest;
+import com.benzinga.bzclient.models.operations.GetSplitsResponse;
 import java.lang.Exception;
 
 public class Application {

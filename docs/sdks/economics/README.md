@@ -16,9 +16,9 @@ Returns the economic calendar data
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetEconomicsRequest;
-import io.bzclient.bzclient.models.operations.GetEconomicsResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetEconomicsRequest;
+import com.benzinga.bzclient.models.operations.GetEconomicsResponse;
 import java.lang.Exception;
 
 public class Application {

@@ -16,9 +16,9 @@ Get Bulls Say Bears Say V1
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.errors.ApiErrorResponse;
-import io.bzclient.bzclient.models.operations.GetBullsSayBearsSayV1Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.errors.ApiErrorResponse;
+import com.benzinga.bzclient.models.operations.GetBullsSayBearsSayV1Response;
 import java.lang.Exception;
 
 public class Application {

@@ -16,8 +16,8 @@ Get derived figures and ratios for a list of symbols
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetDerivedFiguresAndRatiosV3Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetDerivedFiguresAndRatiosV3Response;
 import java.lang.Exception;
 
 public class Application {
@@ -32,7 +32,7 @@ public class Application {
                 .symbols("<value>")
                 .from("<value>")
                 .to("<value>")
-                .date("2024-08-30")
+                .date("2024-08-31")
                 .call();
 
         if (res.string().isPresent()) {

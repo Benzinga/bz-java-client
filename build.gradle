@@ -43,7 +43,7 @@ jar {
     dependsOn(":generatePomFileForMavenPublication")
     archiveBaseName = "bzclient"
 
-    into("META-INF/maven/io.bzclient/bzclient") {
+    into("META-INF/maven/com.benzinga/bzclient") {
         from("$buildDir/pom.xml")
     }
 }
@@ -62,8 +62,8 @@ tasks.withType(Javadoc) {
   options.addStringOption('Xdoclint:none', '-quiet')
 }
 
-group = "io.bzclient"
-version = "0.3.6"
+group = "com.benzinga"
+version = "0.3.7"
 
 sourcesJar {
     archiveBaseName = "bzclient"
@@ -99,9 +99,9 @@ publishing {
 
     publications {
         maven(MavenPublication) {
-            groupId = 'io.bzclient'
+            groupId = 'com.benzinga'
             artifactId = 'bzclient'
-            version = '0.3.6'
+            version = '0.3.7'
 
             from components.java
 

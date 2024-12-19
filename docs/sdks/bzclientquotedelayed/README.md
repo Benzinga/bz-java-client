@@ -16,8 +16,8 @@ Get delayed quotes for a list of symbols
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetQuoteDelayedV2Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetQuoteDelayedV2Response;
 import java.lang.Exception;
 
 public class Application {

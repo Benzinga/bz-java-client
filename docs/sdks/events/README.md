@@ -16,9 +16,9 @@ Get Events
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetEventsRequest;
-import io.bzclient.bzclient.models.operations.GetEventsResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetEventsRequest;
+import com.benzinga.bzclient.models.operations.GetEventsResponse;
 import java.lang.Exception;
 
 public class Application {

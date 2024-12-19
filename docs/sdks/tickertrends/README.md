@@ -17,11 +17,11 @@ Get ticker trend data
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.errors.BzhttpResp;
-import io.bzclient.bzclient.models.errors.HttpapiTickerTrendAPIResponse;
-import io.bzclient.bzclient.models.operations.GetTickerTrendDataRequest;
-import io.bzclient.bzclient.models.operations.GetTickerTrendDataResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.errors.BzhttpResp;
+import com.benzinga.bzclient.models.errors.HttpapiTickerTrendAPIResponse;
+import com.benzinga.bzclient.models.operations.GetTickerTrendDataRequest;
+import com.benzinga.bzclient.models.operations.GetTickerTrendDataResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -76,11 +76,11 @@ Get ticker trend list data
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.errors.BzhttpResp;
-import io.bzclient.bzclient.models.errors.HttpapiTrendingTickersListAPIResponse;
-import io.bzclient.bzclient.models.operations.GetTickerTrendListDataRequest;
-import io.bzclient.bzclient.models.operations.GetTickerTrendListDataResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.errors.BzhttpResp;
+import com.benzinga.bzclient.models.errors.HttpapiTrendingTickersListAPIResponse;
+import com.benzinga.bzclient.models.operations.GetTickerTrendListDataRequest;
+import com.benzinga.bzclient.models.operations.GetTickerTrendListDataResponse;
 import java.lang.Exception;
 
 public class Application {

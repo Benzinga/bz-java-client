@@ -17,9 +17,9 @@ Get News
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetNewsRequest;
-import io.bzclient.bzclient.models.operations.GetNewsResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetNewsRequest;
+import com.benzinga.bzclient.models.operations.GetNewsResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -69,8 +69,8 @@ Get Removed News
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetRemovedNewsResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetRemovedNewsResponse;
 import java.lang.Exception;
 
 public class Application {

@@ -30,8 +30,8 @@ Get Fundamentals V2.1
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetFundamentalsV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetFundamentalsV21Response;
 import java.lang.Exception;
 
 public class Application {
@@ -84,8 +84,8 @@ Get Alpha Beta
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetAlphaBetaV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetAlphaBetaV21Response;
 import java.lang.Exception;
 
 public class Application {
@@ -138,8 +138,8 @@ Get Company Data
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetCompanyV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetCompanyV21Response;
 import java.lang.Exception;
 
 public class Application {
@@ -192,8 +192,8 @@ Get Company Profile
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetCompanyProfileV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetCompanyProfileV21Response;
 import java.lang.Exception;
 
 public class Application {
@@ -246,8 +246,8 @@ Get Share Class
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetShareClassV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetShareClassV21Response;
 import java.lang.Exception;
 
 public class Application {
@@ -300,8 +300,8 @@ Get Share Class Profile
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetShareClassProfileV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetShareClassProfileV21Response;
 import java.lang.Exception;
 
 public class Application {
@@ -354,8 +354,8 @@ Get Fundamentals V2
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetFundamentalsV2Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetFundamentalsV2Response;
 import java.lang.Exception;
 
 public class Application {
@@ -408,8 +408,8 @@ Get Asset Classification
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetAssetClassificationV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetAssetClassificationV21Response;
 import java.lang.Exception;
 
 public class Application {
@@ -462,8 +462,8 @@ Get Earnings Reports
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetEarningsReportsV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetEarningsReportsV21Response;
 import java.lang.Exception;
 
 public class Application {
@@ -516,9 +516,9 @@ Get Financials V2.1
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.errors.BzhttpResp;
-import io.bzclient.bzclient.models.operations.GetFinancialsV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.errors.BzhttpResp;
+import com.benzinga.bzclient.models.operations.GetFinancialsV21Response;
 import java.lang.Exception;
 
 public class Application {
@@ -572,8 +572,8 @@ Get Fundamentals V3
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetFundamentalsV3Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetFundamentalsV3Response;
 import java.lang.Exception;
 
 public class Application {
@@ -588,7 +588,7 @@ public class Application {
                 .symbols("<value>")
                 .from("<value>")
                 .to("<value>")
-                .date("2024-11-15")
+                .date("2024-11-16")
                 .call();
 
         if (res.string().isPresent()) {
@@ -626,9 +626,9 @@ Get Balance Sheet V3
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.errors.BzhttpResp;
-import io.bzclient.bzclient.models.operations.GetBalanceSheetV3Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.errors.BzhttpResp;
+import com.benzinga.bzclient.models.operations.GetBalanceSheetV3Response;
 import java.lang.Exception;
 
 public class Application {
@@ -643,7 +643,7 @@ public class Application {
                 .symbols("<value>")
                 .from("<value>")
                 .to("<value>")
-                .date("2024-01-13")
+                .date("2024-01-14")
                 .call();
 
         if (res.strings().isPresent()) {
@@ -682,9 +682,9 @@ Get Cash Flow V3
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.errors.BzhttpResp;
-import io.bzclient.bzclient.models.operations.GetCashFlowV3Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.errors.BzhttpResp;
+import com.benzinga.bzclient.models.operations.GetCashFlowV3Response;
 import java.lang.Exception;
 
 public class Application {
@@ -699,7 +699,7 @@ public class Application {
                 .symbols("<value>")
                 .from("<value>")
                 .to("<value>")
-                .date("2024-06-03")
+                .date("2024-06-04")
                 .call();
 
         if (res.strings().isPresent()) {
@@ -738,8 +738,8 @@ Get Income Statement V3
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetIncomeStatementV3Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetIncomeStatementV3Response;
 import java.lang.Exception;
 
 public class Application {
@@ -754,7 +754,7 @@ public class Application {
                 .symbols("<value>")
                 .from("<value>")
                 .to("<value>")
-                .date("2024-01-04")
+                .date("2024-01-05")
                 .call();
 
         if (res.string().isPresent()) {
@@ -792,9 +792,9 @@ Get Share Price Ratios
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.errors.BzhttpResp;
-import io.bzclient.bzclient.models.operations.GetSharePriceRatiosV3Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.errors.BzhttpResp;
+import com.benzinga.bzclient.models.operations.GetSharePriceRatiosV3Response;
 import java.lang.Exception;
 
 public class Application {
@@ -809,7 +809,7 @@ public class Application {
                 .symbols("<value>")
                 .from("<value>")
                 .to("<value>")
-                .date("2024-07-16")
+                .date("2024-07-17")
                 .call();
 
         if (res.strings().isPresent()) {

@@ -16,8 +16,8 @@ Get earning ratios for a list of symbols, ISINs, or CIKs
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetEarningRatiosV21Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetEarningRatiosV21Response;
 import java.lang.Exception;
 
 public class Application {

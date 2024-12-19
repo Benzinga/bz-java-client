@@ -13,7 +13,7 @@ generation:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
 java:
-  version: 0.3.6
+  version: 0.3.7
   additionalDependencies: []
   additionalPlugins: []
   artifactID: bzclient
@@ -24,7 +24,7 @@ java:
   defaultErrorName: APIException
   flattenGlobalSecurity: true
   githubURL: github.com/Benzinga/bz-java-client
-  groupID: io.bzclient
+  groupID: com.benzinga
   imports:
     option: openapi
     paths:

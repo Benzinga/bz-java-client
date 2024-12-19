@@ -16,9 +16,9 @@ Get Consensus Ratings for a given symbol
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetConsensusRatingsV1Request;
-import io.bzclient.bzclient.models.operations.GetConsensusRatingsV1Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetConsensusRatingsV1Request;
+import com.benzinga.bzclient.models.operations.GetConsensusRatingsV1Response;
 import java.lang.Exception;
 
 public class Application {

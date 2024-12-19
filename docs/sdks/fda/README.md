@@ -16,9 +16,9 @@ FDA approvals, clinical trials, and PDUFA dates
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetFdaRequest;
-import io.bzclient.bzclient.models.operations.GetFdaResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetFdaRequest;
+import com.benzinga.bzclient.models.operations.GetFdaResponse;
 import java.lang.Exception;
 
 public class Application {

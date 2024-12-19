@@ -16,9 +16,9 @@ Get Removed from v2 endpoint
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetRemovedResponse;
-import io.bzclient.bzclient.models.operations.Type;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetRemovedResponse;
+import com.benzinga.bzclient.models.operations.Type;
 import java.lang.Exception;
 
 public class Application {

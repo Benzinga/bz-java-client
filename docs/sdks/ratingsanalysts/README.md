@@ -16,9 +16,9 @@ Returns the full list of analyst that are providing ratings
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetRatingsAnalystsRequest;
-import io.bzclient.bzclient.models.operations.GetRatingsAnalystsResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetRatingsAnalystsRequest;
+import com.benzinga.bzclient.models.operations.GetRatingsAnalystsResponse;
 import java.lang.Exception;
 
 public class Application {

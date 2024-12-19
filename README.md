@@ -48,15 +48,15 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'io.bzclient:bzclient:0.3.6'
+implementation 'com.benzinga:bzclient:0.3.7'
 ```
 
 Maven:
 ```xml
 <dependency>
-    <groupId>io.bzclient</groupId>
+    <groupId>com.benzinga</groupId>
     <artifactId>bzclient</artifactId>
-    <version>0.3.6</version>
+    <version>0.3.7</version>
 </dependency>
 ```
 
@@ -83,8 +83,8 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -123,8 +123,8 @@ To authenticate with the API the `apiKeyAuth` parameter must be set when initial
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -335,10 +335,10 @@ To change the default retry strategy for a single API call, you can provide a `R
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
-import io.bzclient.bzclient.utils.BackoffStrategy;
-import io.bzclient.bzclient.utils.RetryConfig;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
+import com.benzinga.bzclient.utils.BackoffStrategy;
+import com.benzinga.bzclient.utils.RetryConfig;
 import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
 
@@ -376,10 +376,10 @@ If you'd like to override the default retry strategy for all operations that sup
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
-import io.bzclient.bzclient.utils.BackoffStrategy;
-import io.bzclient.bzclient.utils.RetryConfig;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
+import com.benzinga.bzclient.utils.BackoffStrategy;
+import com.benzinga.bzclient.utils.RetryConfig;
 import java.lang.Exception;
 import java.util.concurrent.TimeUnit;
 
@@ -431,10 +431,10 @@ By default, an API error will throw a `models/errors/APIException` exception. Wh
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.errors.ApiErrorResponse;
-import io.bzclient.bzclient.models.operations.GetAnalystInsightsV1Request;
-import io.bzclient.bzclient.models.operations.GetAnalystInsightsV1Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.errors.ApiErrorResponse;
+import com.benzinga.bzclient.models.operations.GetAnalystInsightsV1Request;
+import com.benzinga.bzclient.models.operations.GetAnalystInsightsV1Response;
 import java.lang.Exception;
 
 public class Application {
@@ -480,8 +480,8 @@ You can override the default server globally using the `.serverIndex(int serverI
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -511,8 +511,8 @@ The default server can also be overridden globally using the `.serverURL(String 
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.operations.GetAnalystReportsRawTextDataResponse;
 import java.lang.Exception;
 
 public class Application {

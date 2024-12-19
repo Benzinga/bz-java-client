@@ -16,10 +16,10 @@ Get Analyst Insights V1
 ```java
 package hello.world;
 
-import io.bzclient.bzclient.Bzclient;
-import io.bzclient.bzclient.models.errors.ApiErrorResponse;
-import io.bzclient.bzclient.models.operations.GetAnalystInsightsV1Request;
-import io.bzclient.bzclient.models.operations.GetAnalystInsightsV1Response;
+import com.benzinga.bzclient.Bzclient;
+import com.benzinga.bzclient.models.errors.ApiErrorResponse;
+import com.benzinga.bzclient.models.operations.GetAnalystInsightsV1Request;
+import com.benzinga.bzclient.models.operations.GetAnalystInsightsV1Response;
 import java.lang.Exception;
 
 public class Application {
