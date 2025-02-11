@@ -120,18 +120,6 @@ paths:
       summary: Get Analyst Insights V1
       tags:
         - Analyst Insights
-      # Pagination extension added here
-      x-speakeasy-pagination:
-        type: offsetLimit
-        inputs:
-          - name: page
-            in: parameters
-            type: page
-          - name: pageSize
-            in: parameters
-            type: pageSize
-        outputs:
-          results: "$.analyst-insights"
   /api/v2.1/calendar/ipos:
     get:
       description: Returns the IPOs data
@@ -214,6 +202,18 @@ paths:
       summary: Get IPOs V2.1
       tags:
         - ipos
+      # Pagination extension added here
+      x-speakeasy-pagination:
+        type: offsetLimit
+        inputs:
+          - name: page
+            in: parameters
+            type: page
+          - name: pageSize
+            in: parameters
+            type: pageSize
+        outputs:
+          results: "$.analyst-insights"
   /api/v2.2/calendar/dividends:
     get:
       description: Returns a list of dividends
